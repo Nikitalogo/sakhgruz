@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="48" viewBox="0 0 180 48">
+  <rect width="180" height="48" fill="transparent"/>
+  <!-- Truck icon -->
+  <g transform="translate(0, 8)">
+    <rect x="2" y="10" width="22" height="14" rx="2" fill="#F97316"/>
+    <rect x="24" y="14" width="10" height="10" rx="1" fill="#F97316"/>
+    <rect x="26" y="16" width="6" height="5" rx="0.5" fill="#111827" opacity="0.4"/>
+    <line x1="33" y1="22" x2="35" y2="22" stroke="#F97316" strokeWidth="1.5"/>
+    <circle cx="8" cy="24" r="3" fill="#1F2937" stroke="#F97316" strokeWidth="1.5"/>
+    <circle cx="28" cy="24" r="3" fill="#1F2937" stroke="#F97316" strokeWidth="1.5"/>
+  </g>
+  <!-- САХГРУЗ text -->
+  <text x="44" y="32" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#FFFFFF" letter-spacing="1">САХГРУЗ</text>
+</svg>
