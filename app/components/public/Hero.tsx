@@ -78,7 +78,7 @@ export default function Hero({ settings }: Props) {
           className="text-white leading-[0.85] mb-8 tracking-wide uppercase"
           style={{
             fontFamily: 'var(--font-bebas), Impact, Arial Black, sans-serif',
-            fontSize: 'clamp(5.5rem, 20vw, 18rem)',
+            fontSize: 'clamp(2.5rem, 9vw, 13rem)',
             textShadow: '0 0 120px rgba(249,115,22,0.15)',
           }}
         >

@@ -5,6 +5,11 @@ interface Props {
   services: Service[]
 }
 
+const DEFAULT_DESCRIPTIONS: Record<string, string> = {
+  'Кран-балки': 'Подъём и перемещение тяжёлых грузов, спуск мебели с этажей',
+  'Клининг': 'Уборка после переезда, генеральная уборка квартир и офисов',
+}
+
 export default function Services({ services }: Props) {
   return (
     <section id="services" className="bg-[#111827] py-24 px-6 sm:px-10 relative overflow-hidden">
@@ -90,12 +95,12 @@ export default function Services({ services }: Props) {
                   </h3>
 
                   {/* Description */}
-                  {service.description && (
+                  {(service.description || DEFAULT_DESCRIPTIONS[service.title]) && (
                     <p
                       className="text-white/50 text-sm leading-relaxed flex-1 relative z-10 mb-5"
                       style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
                     >
-                      {service.description}
+                      {service.description || DEFAULT_DESCRIPTIONS[service.title]}
                     </p>
                   )}
 
