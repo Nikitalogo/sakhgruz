@@ -345,7 +345,7 @@ function ServiceCard({ s, i, active, onHover }: { s: Service; i: number; active:
       </span>
       <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 28, letterSpacing: 2, color: on ? '#000' : '#e8e0d0', marginBottom: 8, transition: 'color .3s' }}>{s.title}</div>
       <div style={{ fontFamily: "'Oswald',sans-serif", fontSize: 13, fontWeight: 300, color: on ? '#000' : '#666', lineHeight: 1.6, marginBottom: 12, transition: 'color .3s' }}>{s.description}</div>
-      <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 11, color: on ? '#000' : '#F97316', letterSpacing: 1, transition: 'color .3s' }}>от {s.price} ₽</div>
+      <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 11, color: on ? '#000' : '#F97316', letterSpacing: 1, transition: 'color .3s' }}>{s.price}</div>
     </div>
   )
 }
