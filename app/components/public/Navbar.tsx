@@ -2,115 +2,85 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Settings } from '@/types'
 
-const links = [
-  { label: 'Услуги', href: '#services' },
-  { label: 'Галерея', href: '#gallery' },
-  { label: 'Отзывы', href: '#reviews' },
-  { label: 'Контакты', href: '#contacts' },
+const slides = [
+  { label: 'УСЛУГИ', idx: 0 },
+  { label: 'ОТЗЫВЫ', idx: 1 },
+  { label: 'ВАКАНСИИ', idx: 2 },
+  { label: 'КОНТАКТЫ', idx: 3 },
 ]
 
-export default function Navbar() {
-  const [open, setOpen] = useState(false)
+export default function Navbar({ settings }: { settings: Settings }) {
   const [scrolled, setScrolled] = useState(false)
-
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    const fn = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', fn)
+    return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  const handleLink = (href: string) => {
-    setOpen(false)
-    const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  const phone = settings?.phone || '412-000'
+
+  const goToSlide = (idx: number) => {
+    const el = document.getElementById('slider')
+    if (!el) return
+    el.scrollIntoView({ behavior: 'smooth' })
+    // dispatch custom event for slider to pick up
+    setTimeout(() => window.dispatchEvent(new CustomEvent('goto-slide', { detail: idx })), 450)
   }
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-[#0a0e18]/98 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
-          : 'bg-transparent'
-      }`}
-    >
-      {/* Orange top accent line */}
-      <div className="h-[3px] bg-[#F97316] w-full" />
+    <nav style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, height: 58,
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '0 clamp(16px,4vw,44px)',
+      transition: 'all .3s',
+      background: scrolled ? 'rgba(10,10,10,.96)' : 'transparent',
+      borderBottom: scrolled ? '1px solid #1e1e1e' : '1px solid transparent',
+      backdropFilter: scrolled ? 'blur(12px)' : 'none',
+    }}>
+      <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+        <Image src="/logo.png" alt="САХГРУЗ" width={80} height={32}
+          style={{ height: 32, width: 'auto', objectFit: 'contain' }}
+          onError={() => {}} />
+        <span style={{
+          fontFamily: "'Bebas Neue',sans-serif", fontSize: 24, letterSpacing: 5,
+          color: '#e8e0d0',
+        }}>
+          САХ<span style={{ color: '#F97316' }}>ГРУЗ</span>
+        </span>
+      </a>
 
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <Image
-            src="/logo.png"
-            alt="САХГРУЗ"
-            width={160}
-            height={44}
-            className="h-9 w-auto object-contain transition-opacity duration-200 group-hover:opacity-80"
-            priority
-            unoptimized
-          />
-        </Link>
-
-        {/* Desktop nav */}
-        <ul className="hidden md:flex items-center gap-0">
-          {links.map((l) => (
-            <li key={l.href}>
-              <button
-                onClick={() => handleLink(l.href)}
-                className="relative px-5 py-2 text-white/70 hover:text-white font-montserrat text-sm font-semibold uppercase tracking-[0.12em] transition-colors duration-200 group"
-              >
-                {l.label}
-                <span className="absolute bottom-0 left-5 right-5 h-[2px] bg-[#F97316] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+      <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
+        <ul style={{ display: 'flex', gap: 24, listStyle: 'none', margin: 0, padding: 0 }}
+          className="nav-links-hide">
+          {slides.map(s => (
+            <li key={s.idx}>
+              <button onClick={() => goToSlide(s.idx)} style={{
+                fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, letterSpacing: 2,
+                textTransform: 'uppercase', color: '#666', background: 'none',
+                border: 'none', cursor: 'pointer', transition: 'color .2s', padding: 0,
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#F97316')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#666')}>
+                {s.label}
               </button>
             </li>
           ))}
         </ul>
-
-        {/* Burger */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-[5px]"
-          aria-label="Меню"
-        >
-          <span
-            className={`block h-[2px] w-6 bg-white transition-all duration-300 origin-center ${
-              open ? 'rotate-45 translate-y-[7px]' : ''
-            }`}
-          />
-          <span
-            className={`block h-[2px] bg-white transition-all duration-300 ${
-              open ? 'w-0 opacity-0' : 'w-6 opacity-100'
-            }`}
-          />
-          <span
-            className={`block h-[2px] w-6 bg-white transition-all duration-300 origin-center ${
-              open ? '-rotate-45 -translate-y-[7px]' : ''
-            }`}
-          />
-        </button>
+        <a href={`tel:${phone}`} style={{
+          fontFamily: "'IBM Plex Mono',monospace", fontSize: 11, letterSpacing: 2,
+          color: '#e8e0d0', textDecoration: 'none',
+          border: '1px solid #1e1e1e', padding: '6px 14px', transition: 'all .2s',
+        }}
+        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#F97316'; (e.currentTarget as HTMLAnchorElement).style.color = '#F97316' }}
+        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#1e1e1e'; (e.currentTarget as HTMLAnchorElement).style.color = '#e8e0d0' }}>
+          {phone}
+        </a>
       </div>
-
-      {/* Mobile menu */}
-      <div
-        className={`md:hidden border-t border-[#F97316]/20 overflow-hidden transition-all duration-400 ${
-          open ? 'max-h-80 bg-[#0a0e18]/98 backdrop-blur-md' : 'max-h-0'
-        }`}
-      >
-        <ul className="flex flex-col">
-          {links.map((l, i) => (
-            <li key={l.href} style={{ transitionDelay: open ? `${i * 40}ms` : '0ms' }}>
-              <button
-                onClick={() => handleLink(l.href)}
-                className="w-full text-left px-6 py-4 text-white/80 hover:text-white hover:bg-[#F97316]/10 font-montserrat text-sm font-semibold uppercase tracking-[0.12em] transition-colors border-b border-white/5 flex items-center justify-between"
-              >
-                {l.label}
-                <span className="text-[#F97316] text-xs">→</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <style>{`
+        @media(max-width:768px){.nav-links-hide{display:none!important}}
+      `}</style>
     </nav>
   )
 }

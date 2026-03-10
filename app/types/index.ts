@@ -7,7 +7,6 @@ export interface Service {
   order: number
   visible: boolean
 }
-
 export interface Photo {
   id: string
   url: string
@@ -15,15 +14,15 @@ export interface Photo {
   category: string
   created_at: string
 }
-
 export interface Review {
   id: string
   author: string
   text: string
   rating: number
   source: string
-  visible: boolean
+  review_date?: string | null
+  visible?: boolean
+  is_visible?: boolean
   created_at: string
 }
-
 export type Settings = Record<string, string>

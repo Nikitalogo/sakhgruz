@@ -1,213 +1,183 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import { Settings } from '@/types'
 
-interface Props {
-  settings: Settings
-}
+const TgIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.04 9.613c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.48 14.4l-2.95-.924c-.641-.2-.654-.641.136-.948l11.527-4.447c.537-.194 1.006.131.37.167z"/>
+  </svg>
+)
+const WaIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+)
 
-export default function Hero({ settings }: Props) {
-  const title = settings.hero_title || 'САХГРУЗ'
-  const subtitle = settings.hero_subtitle || 'Грузоперевозки и грузчики по Сахалину'
-  const phone = settings.phone || ''
-  const telegram = settings.telegram || ''
-  const whatsapp = settings.whatsapp || ''
+export default function Hero({ settings }: { settings: Settings }) {
+  const [visible, setVisible] = useState(false)
+  useEffect(() => { setTimeout(() => setVisible(true), 80) }, [])
+
+  const phone = settings?.phone || '412-000'
+  const tg = settings?.telegram_url || '#'
+  const wa = settings?.whatsapp_url || '#'
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex flex-col overflow-hidden"
-      style={{ background: '#0a0e18' }}
-    >
-      {/* Industrial grid background */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(249,115,22,0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(249,115,22,0.04) 1px, transparent 1px)
-          `,
-          backgroundSize: '80px 80px',
-        }}
-      />
+    <section style={{
+      minHeight: '100vh', position: 'relative', overflow: 'hidden',
+      display: 'flex', flexDirection: 'column',
+      background: '#0a0a0a',
+    }}>
+      {/* Grid bg */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: `repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(255,255,255,.016) 79px,rgba(255,255,255,.016) 80px),repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(255,255,255,.016) 79px,rgba(255,255,255,.016) 80px)`,
+      }}/>
+      {/* Glow */}
+      <div style={{
+        position: 'absolute', top: -120, right: -60, width: 520, height: 520,
+        background: 'radial-gradient(circle,rgba(249,115,22,.08) 0%,transparent 65%)',
+        pointerEvents: 'none',
+      }}/>
+      {/* Diagonal */}
+      <div style={{
+        position: 'absolute', top: 0, right: 0, width: '48%', height: '100%',
+        background: 'linear-gradient(135deg,transparent 36%,rgba(249,115,22,.035) 36%)',
+        pointerEvents: 'none',
+      }}/>
+      <div style={{
+        position: 'absolute', top: 0, right: '43%', width: 2, height: '100%',
+        background: 'linear-gradient(to bottom,transparent,#F97316 12%,#F97316 88%,transparent)',
+        transform: 'skewX(-5deg)',
+      }}/>
 
-      {/* Bold diagonal orange slab — right side */}
-      <div
-        className="absolute top-0 right-0 h-full pointer-events-none"
-        style={{
-          width: '42%',
-          background: 'linear-gradient(135deg, transparent 0%, rgba(249,115,22,0.06) 100%)',
-          clipPath: 'polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%)',
-        }}
-      />
-      <div
-        className="absolute top-0 right-0 h-full pointer-events-none hidden lg:block"
-        style={{
-          width: '3px',
-          background: '#F97316',
-          right: '38%',
-          transform: 'skewX(-8deg) translateX(-50px)',
-          opacity: 0.6,
-        }}
-      />
+      {/* Content */}
+      <div style={{
+        position: 'relative', zIndex: 2,
+        padding: 'clamp(100px,14vw,160px) clamp(20px,4vw,44px) 80px',
+        flex: 1,
+      }}>
+        {visible && (
+          <>
+            <div className="h-anim-0" style={{
+              fontFamily: "'IBM Plex Mono', monospace",
+              fontSize: 10, letterSpacing: 4, color: '#F97316',
+              textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 12,
+              marginBottom: 22,
+            }}>
+              <span style={{ width: 22, height: 1, background: '#F97316', display: 'block' }}/>
+              Южно-Сахалинск · с 2019 года
+            </div>
 
-      {/* Orange glow bottom-left */}
-      <div
-        className="absolute bottom-0 left-0 pointer-events-none"
-        style={{
-          width: '500px',
-          height: '400px',
-          background: 'radial-gradient(ellipse at bottom left, rgba(249,115,22,0.12) 0%, transparent 65%)',
-        }}
-      />
+            <h1 className="h-anim-1" style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: 'clamp(72px,12.5vw,162px)', lineHeight: .88,
+              letterSpacing: -2, color: '#e8e0d0', marginBottom: 30,
+            }}>
+              ГРУЗО<br/>
+              <span style={{ color: '#F97316' }}>ПЕРЕВОЗКИ</span>
+            </h1>
 
-      {/* Main content */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-6 sm:px-10 pt-32 pb-10">
+            <p className="h-anim-2" style={{
+              fontFamily: "'Oswald', sans-serif",
+              fontSize: 16, fontWeight: 300, color: '#666',
+              maxWidth: 360, lineHeight: 1.75, marginBottom: 38,
+              borderLeft: '2px solid #F97316', paddingLeft: 16,
+            }}>
+              По городу и в радиусе 60 км.<br/>
+              Грузчики. Фургоны. Кран-балки.<br/>
+              Работаем без выходных.
+            </p>
 
-        {/* Location pill */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="w-10 h-[2px] bg-[#F97316]" />
-          <span
-            className="text-[#F97316] text-xs font-semibold uppercase tracking-[0.35em]"
-            style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
-          >
-            Южно-Сахалинск · с 2019 года
-          </span>
-        </div>
-
-        {/* HERO TITLE — massive */}
-        <h1
-          className="text-white leading-[0.85] mb-8 tracking-wide uppercase"
-          style={{
-            fontFamily: 'var(--font-bebas), Impact, Arial Black, sans-serif',
-            fontSize: 'clamp(2.5rem, 9vw, 13rem)',
-            textShadow: '0 0 120px rgba(249,115,22,0.15)',
-          }}
-        >
-          {title}
-        </h1>
-
-        {/* Subtitle with left accent bar */}
-        <div className="flex items-start gap-5 mb-14 max-w-xl">
-          <div className="w-1 min-h-[3rem] bg-[#F97316] mt-1 flex-shrink-0" />
-          <p
-            className="text-white/65 text-lg sm:text-xl leading-relaxed"
-            style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif', fontWeight: 500 }}
-          >
-            {subtitle}
-          </p>
-        </div>
-
-        {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          {phone && (
-            <a
-              href={`tel:${phone.replace(/\s/g, '')}`}
-              className="group flex items-center gap-3 bg-[#F97316] hover:bg-white text-white hover:text-[#111827] px-8 py-4 transition-all duration-300 uppercase tracking-[0.12em] text-sm font-bold"
-              style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
-            >
-              <PhoneIcon />
-              Позвонить
-              <span className="ml-auto group-hover:translate-x-1 transition-transform duration-300">→</span>
-            </a>
-          )}
-
-          {telegram && (
-            <a
-              href={telegram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-3 bg-transparent border-2 border-white/25 hover:border-[#F97316] text-white px-8 py-4 transition-all duration-300 uppercase tracking-[0.12em] text-sm font-bold"
-              style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
-            >
-              <TelegramIcon />
-              Telegram
-              <span className="ml-auto group-hover:translate-x-1 transition-transform duration-300 text-[#F97316]">→</span>
-            </a>
-          )}
-
-          {whatsapp && !telegram && (
-            <a
-              href={whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-3 bg-transparent border-2 border-white/25 hover:border-[#25D366] text-white px-8 py-4 transition-all duration-300 uppercase tracking-[0.12em] text-sm font-bold"
-              style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
-            >
-              <WhatsAppIcon />
-              WhatsApp
-              <span className="ml-auto group-hover:translate-x-1 transition-transform duration-300 text-[#25D366]">→</span>
-            </a>
-          )}
-        </div>
+            <div className="h-anim-3" style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
+              <a href={`tel:${phone}`} style={{
+                fontFamily: "'IBM Plex Mono', monospace",
+                fontSize: 12, letterSpacing: 2, textTransform: 'uppercase',
+                background: '#F97316', color: '#000', padding: '15px 32px',
+                textDecoration: 'none', fontWeight: 700,
+                clipPath: 'polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))',
+                transition: 'all .2s',
+              }}>
+                Позвонить: {phone}
+              </a>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' as const }}>
+                {[
+                  { href: tg, icon: <TgIcon/>, label: 'Telegram', color: '#229ED9' },
+                  { href: wa, icon: <WaIcon/>, label: 'WhatsApp', color: '#25D366' },
+                ].map(({ href, icon, label, color }) => (
+                  <a key={label} href={href} style={{
+                    fontFamily: "'IBM Plex Mono', monospace",
+                    fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase' as const,
+                    textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 7,
+                    padding: '9px 14px', border: '1px solid #1e1e1e', color: '#666',
+                    background: 'transparent', transition: 'all .22s',
+                  }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLAnchorElement
+                    el.style.background = color
+                    el.style.borderColor = color
+                    el.style.color = '#fff'
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLAnchorElement
+                    el.style.background = 'transparent'
+                    el.style.borderColor = '#1e1e1e'
+                    el.style.color = '#666'
+                  }}>
+                    {icon}<span>{label}</span>
+                    {href === '#' && <span style={{ fontSize: 7, background: 'rgba(255,255,255,.07)', color: '#666', padding: '2px 5px' }}>СКОРО</span>}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
-      {/* Stats bar at bottom */}
-      <div
-        className="relative z-10 border-t border-white/[0.07]"
-        style={{ background: 'rgba(255,255,255,0.02)' }}
-      >
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-6 grid grid-cols-3 gap-0 divide-x divide-white/[0.08]">
-          {[
-            { num: '5+', label: 'лет работы' },
-            { num: '500+', label: 'выполненных заказов' },
-            { num: '24/7', label: 'на связи' },
-          ].map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center sm:items-start px-4 sm:px-8 first:pl-0 last:pr-0">
-              <span
-                className="text-[#F97316] leading-none"
-                style={{
-                  fontFamily: 'var(--font-bebas), Impact, sans-serif',
-                  fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
-                }}
-              >
-                {stat.num}
-              </span>
-              <span
-                className="text-white/40 text-[10px] sm:text-xs mt-1 uppercase tracking-[0.15em] text-center sm:text-left"
-                style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
-              >
-                {stat.label}
-              </span>
+      {/* Stats */}
+      {visible && (
+        <div style={{
+          position: 'absolute', bottom: 44, right: 'clamp(20px,4vw,44px)',
+          display: 'flex', gap: 40, zIndex: 2,
+        }}>
+          {[['5.0 ★', 'на 2ГИС'], ['500+', 'заказов'], ['24/7', 'на связи']].map(([n, l], i) => (
+            <div key={l} className={`s-anim-${i}`} style={{ textAlign: 'right' }}>
+              <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 48, color: '#e8e0d0', lineHeight: 1, display: 'block' }}>{n}</span>
+              <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: '#666', letterSpacing: 2.5, textTransform: 'uppercase' as const }}>{l}</span>
             </div>
           ))}
         </div>
-      </div>
+      )}
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-24 right-8 hidden lg:flex flex-col items-center gap-2 opacity-30">
-        <span
-          className="text-white text-[10px] uppercase tracking-[0.2em] rotate-90 mb-4"
-          style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
-        >
-          Листать
+      {/* Scroll cue */}
+      <button
+        onClick={() => document.getElementById('slider')?.scrollIntoView({ behavior: 'smooth' })}
+        style={{
+          position: 'absolute', bottom: 44, left: 'clamp(20px,4vw,44px)', zIndex: 2,
+          display: 'flex', alignItems: 'center', gap: 10,
+          fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, letterSpacing: 2,
+          color: '#666', textTransform: 'uppercase', cursor: 'pointer',
+          border: 'none', background: 'none',
+        }}
+      >
+        <span style={{ width: 32, height: 1, background: 'currentColor', position: 'relative', display: 'block' }}>
+          <span style={{
+            position: 'absolute', right: 0, top: -3,
+            borderTop: '3px solid transparent', borderBottom: '3px solid transparent',
+            borderLeft: '6px solid currentColor',
+          }}/>
         </span>
-        <div className="w-[1px] h-12 bg-white" />
-      </div>
+        Смотреть услуги
+      </button>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600&family=IBM+Plex+Mono:wght@400;700&display=swap');
+        .h-anim-0,.h-anim-1,.h-anim-2,.h-anim-3{opacity:0;transform:translateY(24px);animation:hIn .85s cubic-bezier(.16,1,.3,1) forwards;}
+        .h-anim-0{animation-delay:.1s}.h-anim-1{animation-delay:.25s}.h-anim-2{animation-delay:.4s}.h-anim-3{animation-delay:.55s}
+        .s-anim-0,.s-anim-1,.s-anim-2{opacity:0;animation:hIn .85s cubic-bezier(.16,1,.3,1) forwards;}
+        .s-anim-0{animation-delay:.7s}.s-anim-1{animation-delay:.82s}.s-anim-2{animation-delay:.94s}
+        @keyframes hIn{to{opacity:1;transform:translateY(0)}}
+      `}</style>
     </section>
-  )
-}
-
-function PhoneIcon() {
-  return (
-    <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-      <path strokeLinecap="round" strokeLinejoin="round"
-        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-      />
-    </svg>
-  )
-}
-
-function TelegramIcon() {
-  return (
-    <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-    </svg>
-  )
-}
-
-function WhatsAppIcon() {
-  return (
-    <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
   )
 }

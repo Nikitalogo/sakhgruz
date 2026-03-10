@@ -40,7 +40,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar settings={settings} />
       <main>
         <Hero settings={settings} />
         <Services services={services} />
