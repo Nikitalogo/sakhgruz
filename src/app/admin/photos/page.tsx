@@ -6,6 +6,7 @@ import { getSupabaseBrowser } from '@/lib/supabase-browser'
 import { Photo } from '@/types'
 
 const MAX_SIZE = 5 * 1024 * 1024 // 5 MB
+const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 export default function PhotosPage() {
   const [photos, setPhotos] = useState<Photo[]>([])
@@ -28,8 +29,8 @@ export default function PhotosPage() {
   useEffect(() => { load() }, [])
 
   async function uploadFile(file: File) {
-    if (!file.type.startsWith('image/')) {
-      setError('Только изображения (image/*)')
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+      setError('Допустимые форматы: JPG, PNG, WebP')
       return
     }
     if (file.size > MAX_SIZE) {

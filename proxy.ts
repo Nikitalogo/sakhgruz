@@ -1,28 +1,45 @@
+import { createServerClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export async function proxy(req: NextRequest) {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-  const projectRef = new URL(supabaseUrl).hostname.split('.')[0]
-  const baseName = `sb-${projectRef}-auth-token`
+  let response = NextResponse.next({ request: req })
 
-  // auth-helpers-nextjs splits large sessions into chunks: baseName, baseName.0, baseName.1 …
-  const allCookies = req.cookies.getAll()
-  const isAuthenticated = allCookies.some(
-    (c) => c.name === baseName || c.name.startsWith(`${baseName}.`)
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll: () => req.cookies.getAll(),
+        setAll: (cookiesToSet) => {
+          cookiesToSet.forEach(({ name, value }) => req.cookies.set(name, value))
+          response = NextResponse.next({ request: req })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          )
+        },
+      },
+    }
   )
+
+  // Проверяет JWT подпись через Supabase
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
 
   const isLoginPath = req.nextUrl.pathname === '/admin/login'
 
-  if (!isLoginPath && !isAuthenticated) {
+  // Неавторизованных — редирект на /admin/login
+  if (!isLoginPath && !session) {
     return NextResponse.redirect(new URL('/admin/login', req.url))
   }
 
-  if (isLoginPath && isAuthenticated) {
+  // Авторизованных на странице логина — редирект в панель
+  if (isLoginPath && session) {
     return NextResponse.redirect(new URL('/admin/dashboard', req.url))
   }
 
-  return NextResponse.next()
+  return response
 }
 
 export const config = {

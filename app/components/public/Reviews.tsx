@@ -11,7 +11,7 @@ function Stars({ rating }: { rating: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
-          className={`w-4 h-4 ${i < rating ? 'text-[#F97316]' : 'text-white/20'}`}
+          className={`w-3.5 h-3.5 ${i < rating ? 'text-[#F97316]' : 'text-white/15'}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -24,34 +24,114 @@ function Stars({ rating }: { rating: number }) {
 
 export default function Reviews({ reviews }: Props) {
   return (
-    <section id="reviews" className="bg-[#0f1623] py-20 px-4">
-      <div className="max-w-6xl mx-auto">
+    <section id="reviews" className="bg-[#111827] py-24 px-6 sm:px-10 relative overflow-hidden">
+      {/* Ghost text decoration */}
+      <div
+        className="absolute -top-4 -right-4 select-none pointer-events-none leading-none"
+        style={{
+          fontFamily: 'var(--font-bebas), Impact, sans-serif',
+          fontSize: 'clamp(10rem, 20vw, 20rem)',
+          color: 'rgba(249,115,22,0.035)',
+        }}
+        aria-hidden
+      >
+        ★★★
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section header */}
         <FadeIn>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">Отзывы</h2>
-            <p className="text-white/50">Что говорят наши клиенты</p>
+          <div className="mb-16">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-10 h-[3px] bg-[#F97316]" />
+              <span
+                className="text-[#F97316] text-xs font-semibold uppercase tracking-[0.35em]"
+                style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
+              >
+                Клиенты о нас
+              </span>
+            </div>
+            <h2
+              className="text-white uppercase leading-none"
+              style={{
+                fontFamily: 'var(--font-bebas), Impact, Arial Black, sans-serif',
+                fontSize: 'clamp(3rem, 8vw, 7rem)',
+                letterSpacing: '0.02em',
+              }}
+            >
+              Отзывы
+            </h2>
           </div>
         </FadeIn>
 
         {reviews.length === 0 ? (
           <FadeIn>
-            <p className="text-center text-white/40">Отзывы появятся скоро</p>
+            <p
+              className="text-white/30 text-sm uppercase tracking-widest"
+              style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
+            >
+              Отзывы появятся скоро
+            </p>
           </FadeIn>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {reviews.map((review, i) => (
-              <FadeIn key={review.id} delay={i * 80}>
-                <div className="bg-[#1F2937] rounded-2xl p-6 border border-white/5 flex flex-col gap-4 h-full">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="font-semibold text-white">{review.author}</p>
-                      {review.source && (
-                        <p className="text-xs text-white/40 mt-0.5">{review.source}</p>
-                      )}
-                    </div>
+              <FadeIn key={review.id} delay={i * 70}>
+                <div className="group relative bg-[#141b28] hover:bg-[#1a2236] border border-white/[0.06] hover:border-[#F97316]/25 p-7 transition-all duration-300 h-full flex flex-col">
+
+                  {/* Big quote mark */}
+                  <div
+                    className="absolute top-4 right-6 text-[#F97316]/10 group-hover:text-[#F97316]/20 transition-colors duration-300 leading-none select-none"
+                    style={{
+                      fontFamily: 'Georgia, serif',
+                      fontSize: '5rem',
+                      lineHeight: 1,
+                    }}
+                    aria-hidden
+                  >
+                    &ldquo;
+                  </div>
+
+                  {/* Stars */}
+                  <div className="mb-4">
                     <Stars rating={review.rating} />
                   </div>
-                  <p className="text-white/70 text-sm leading-relaxed flex-1">{review.text}</p>
+
+                  {/* Review text */}
+                  <p
+                    className="text-white/65 text-sm leading-relaxed flex-1 mb-6 relative z-10"
+                    style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
+                  >
+                    {review.text}
+                  </p>
+
+                  {/* Author */}
+                  <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
+                    <div className="w-8 h-8 bg-[#F97316]/15 flex items-center justify-center flex-shrink-0">
+                      <span
+                        className="text-[#F97316] text-sm font-bold leading-none"
+                        style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
+                      >
+                        {review.author.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
+                    <div>
+                      <p
+                        className="text-white font-semibold text-sm leading-tight"
+                        style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
+                      >
+                        {review.author}
+                      </p>
+                      {review.source && (
+                        <p
+                          className="text-white/30 text-xs mt-0.5"
+                          style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
+                        >
+                          {review.source}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </FadeIn>
             ))}

@@ -1,10 +1,16 @@
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
+import { Bebas_Neue, Montserrat } from 'next/font/google'
 import './globals.css'
 
-const geist = Geist({
-  variable: '--font-geist-sans',
+const bebas = Bebas_Neue({
+  weight: '400',
   subsets: ['latin'],
+  variable: '--font-bebas',
+})
+
+const montserrat = Montserrat({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-montserrat',
 })
 
 export const metadata: Metadata = {
@@ -20,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${geist.variable} antialiased bg-[#111827] text-white`}>
+      <body className={`${bebas.variable} ${montserrat.variable} antialiased bg-[#111827] text-white`}>
         {children}
       </body>
     </html>
