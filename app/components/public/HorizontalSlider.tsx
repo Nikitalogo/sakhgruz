@@ -102,14 +102,14 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
         borderBottom: '1px solid #1e1e1e',
         background: 'rgba(10,10,10,.92)', backdropFilter: 'blur(10px)',
       }}>
-        <div style={{ display: 'flex', flex: 1 }}>
+        <div className="slider-tabs" style={{ display: 'flex', flex: 1, overflowX: 'auto' }}>
           {SLIDES.map((s, i) => (
             <button key={i} onClick={() => goTo(i)} style={{
               fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, letterSpacing: 2,
               textTransform: 'uppercase',
               border: 'none', borderRight: '1px solid #1e1e1e',
               ...(i === 0 ? { borderLeft: '1px solid #1e1e1e' } : {}),
-              padding: '0 20px', cursor: 'pointer',
+              padding: '0 20px', cursor: 'pointer', flexShrink: 0,
               color: current === i ? '#F97316' : '#666',
               background: current === i ? 'rgba(249,115,22,.04)' : 'transparent',
               display: 'flex', alignItems: 'center', gap: 7, whiteSpace: 'nowrap',
@@ -120,10 +120,10 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
             </button>
           ))}
         </div>
-        <span style={{
+        <span className="slider-counter" style={{
           fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: '#666',
           letterSpacing: 2, display: 'flex', alignItems: 'center',
-          padding: '0 20px', borderLeft: '1px solid #1e1e1e',
+          padding: '0 20px', borderLeft: '1px solid #1e1e1e', flexShrink: 0,
         }}>
           {String(current + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
         </span>
@@ -163,7 +163,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
         {current === 0 && (
           <>
             <SectionHead num="01" title="УСЛУГИ"/>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', flex: 1 }}>
+            <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', flex: 1 }}>
               {services.map((s, i) => (
                 <ServiceCard key={s.id} s={s} i={i} active={activeService === i} onHover={() => setActiveService(i)}/>
               ))}
@@ -190,7 +190,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
                 Все отзывы →
               </a>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', flex: 1 }}>
+            <div className="reviews-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', flex: 1 }}>
               {reviews.map((r, i) => (
                 <div key={r.id ?? i} style={{ border: '1px solid #1e1e1e', padding: 36, margin: -1 }}>
                   <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 60, color: '#F97316', opacity: .1, lineHeight: .8, marginBottom: 14, display: 'block' }}>"</span>
@@ -208,7 +208,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
         {current === 2 && (
           <>
             <SectionHead num="03" title="ВАКАНСИИ"/>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', flex: 1 }}>
+            <div className="vacancies-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', flex: 1 }}>
               {VACANCIES.map(v => (
                 <div key={v.id} style={{ border: '1px solid #1e1e1e', padding: 44, margin: -1, position: 'relative', overflow: 'hidden' }}
                   className="vac-card">
@@ -300,6 +300,17 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
             </div>
           </>
         )}
+
+        <style>{`
+          @media(max-width:640px){
+            .services-grid{grid-template-columns:1fr!important;}
+            .reviews-grid{grid-template-columns:1fr!important;}
+            .vacancies-grid{grid-template-columns:1fr!important;}
+            .slider-tabs{overflow-x:auto;}
+            .slider-tabs::-webkit-scrollbar{display:none;}
+            .slider-counter{display:none!important;}
+          }
+        `}</style>
 
         {/* Footer */}
         <div style={{

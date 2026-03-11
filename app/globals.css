@@ -21,6 +21,7 @@ body {
   background: #111827;
   color: #ffffff;
   font-family: var(--font-montserrat), Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 /* Industrial noise texture overlay utility */

@@ -71,7 +71,7 @@ export default function Hero({ settings }: { settings: Settings }) {
 
             <h1 className="h-anim-1" style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: 'clamp(72px,12.5vw,162px)', lineHeight: .88,
+              fontSize: 'clamp(52px,12.5vw,162px)', lineHeight: .88,
               letterSpacing: -2, color: '#e8e0d0', marginBottom: 30,
             }}>
               ГРУЗО<br/>
@@ -136,7 +136,7 @@ export default function Hero({ settings }: { settings: Settings }) {
 
       {/* Stats */}
       {visible && (
-        <div style={{
+        <div className="hero-stats" style={{
           position: 'absolute', bottom: 44, right: 'clamp(20px,4vw,44px)',
           display: 'flex', gap: 40, zIndex: 2,
         }}>
@@ -177,6 +177,9 @@ export default function Hero({ settings }: { settings: Settings }) {
         .s-anim-0,.s-anim-1,.s-anim-2{opacity:0;animation:hIn .85s cubic-bezier(.16,1,.3,1) forwards;}
         .s-anim-0{animation-delay:.7s}.s-anim-1{animation-delay:.82s}.s-anim-2{animation-delay:.94s}
         @keyframes hIn{to{opacity:1;transform:translateY(0)}}
+        @media(max-width:640px){
+          .hero-stats{display:none!important;}
+        }
       `}</style>
     </section>
   )
