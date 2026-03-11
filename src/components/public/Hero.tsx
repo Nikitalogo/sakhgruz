@@ -14,19 +14,36 @@ const WaIcon = () => (
   </svg>
 )
 
+function useWindowWidth() {
+  const [w, setW] = useState(390)
+  useEffect(() => {
+    setW(window.innerWidth)
+    const fn = () => setW(window.innerWidth)
+    window.addEventListener('resize', fn)
+    return () => window.removeEventListener('resize', fn)
+  }, [])
+  return w
+}
+
 export default function Hero({ settings }: { settings: Settings }) {
   const [visible, setVisible] = useState(false)
   useEffect(() => { setTimeout(() => setVisible(true), 80) }, [])
+
+  const w = useWindowWidth()
+  const isMobile = w < 640
+  const isTablet = w >= 640 && w < 1024
 
   const phone = settings?.phone || '412-000'
   const tg = settings?.telegram_url || '#'
   const wa = settings?.whatsapp_url || '#'
 
+  const titleSize = isMobile ? 48 : isTablet ? 72 : 'clamp(52px,12.5vw,162px)'
+
   return (
     <section style={{
       minHeight: '100vh', position: 'relative', overflow: 'hidden',
       display: 'flex', flexDirection: 'column',
-      background: '#0a0a0a',
+      background: '#0a0a0a', maxWidth: '100vw',
     }}>
       {/* Grid bg */}
       <div style={{
@@ -39,22 +56,28 @@ export default function Hero({ settings }: { settings: Settings }) {
         background: 'radial-gradient(circle,rgba(249,115,22,.08) 0%,transparent 65%)',
         pointerEvents: 'none',
       }}/>
-      {/* Diagonal */}
-      <div style={{
-        position: 'absolute', top: 0, right: 0, width: '48%', height: '100%',
-        background: 'linear-gradient(135deg,transparent 36%,rgba(249,115,22,.035) 36%)',
-        pointerEvents: 'none',
-      }}/>
-      <div style={{
-        position: 'absolute', top: 0, right: '43%', width: 2, height: '100%',
-        background: 'linear-gradient(to bottom,transparent,#F97316 12%,#F97316 88%,transparent)',
-        transform: 'skewX(-5deg)',
-      }}/>
+      {/* Diagonal — hidden on mobile */}
+      {!isMobile && <>
+        <div style={{
+          position: 'absolute', top: 0, right: 0, width: '48%', height: '100%',
+          background: 'linear-gradient(135deg,transparent 36%,rgba(249,115,22,.035) 36%)',
+          pointerEvents: 'none',
+        }}/>
+        <div style={{
+          position: 'absolute', top: 0, right: '43%', width: 2, height: '100%',
+          background: 'linear-gradient(to bottom,transparent,#F97316 12%,#F97316 88%,transparent)',
+          transform: 'skewX(-5deg)',
+        }}/>
+      </>}
 
       {/* Content */}
       <div style={{
         position: 'relative', zIndex: 2,
-        padding: 'clamp(100px,14vw,160px) clamp(20px,4vw,44px) 80px',
+        padding: isMobile
+          ? '100px 16px 80px'
+          : isTablet
+          ? '120px 24px 80px'
+          : 'clamp(100px,14vw,160px) clamp(20px,4vw,44px) 80px',
         flex: 1,
       }}>
         {visible && (
@@ -71,11 +94,11 @@ export default function Hero({ settings }: { settings: Settings }) {
 
             <h1 className="h-anim-1" style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: 'clamp(72px,12.5vw,162px)', lineHeight: .88,
+              fontSize: titleSize, lineHeight: .88,
               letterSpacing: -2, color: '#e8e0d0', marginBottom: 30,
             }}>
-              ГРУЗО<br/>
-              <span style={{ color: '#F97316' }}>ПЕРЕВОЗКИ</span>
+              НА ОСТРОВЕ<br/>
+              <span style={{ color: '#F97316' }}>С ЛЮБОВЬЮ</span>
             </h1>
 
             <p className="h-anim-2" style={{
@@ -134,10 +157,10 @@ export default function Hero({ settings }: { settings: Settings }) {
         )}
       </div>
 
-      {/* Stats */}
-      {visible && (
+      {/* Stats — hidden on mobile */}
+      {visible && !isMobile && (
         <div style={{
-          position: 'absolute', bottom: 44, right: 'clamp(20px,4vw,44px)',
+          position: 'absolute', bottom: 44, right: isTablet ? 24 : 'clamp(20px,4vw,44px)',
           display: 'flex', gap: 40, zIndex: 2,
         }}>
           {[['5.0 ★', 'на 2ГИС'], ['500+', 'заказов'], ['24/7', 'на связи']].map(([n, l], i) => (
@@ -153,7 +176,7 @@ export default function Hero({ settings }: { settings: Settings }) {
       <button
         onClick={() => document.getElementById('slider')?.scrollIntoView({ behavior: 'smooth' })}
         style={{
-          position: 'absolute', bottom: 44, left: 'clamp(20px,4vw,44px)', zIndex: 2,
+          position: 'absolute', bottom: 44, left: isMobile ? 16 : isTablet ? 24 : 'clamp(20px,4vw,44px)', zIndex: 2,
           display: 'flex', alignItems: 'center', gap: 10,
           fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, letterSpacing: 2,
           color: '#666', textTransform: 'uppercase', cursor: 'pointer',
