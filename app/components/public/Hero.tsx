@@ -97,8 +97,8 @@ export default function Hero({ settings }: { settings: Settings }) {
               fontSize: titleSize, lineHeight: .88,
               letterSpacing: -2, color: '#e8e0d0', marginBottom: 30,
             }}>
-              ГРУЗО<br/>
-              <span style={{ color: '#F97316' }}>ПЕРЕВОЗКИ</span>
+              НА ОСТРОВЕ<br/>
+              <span style={{ color: '#F97316' }}>С ЛЮБОВЬЮ</span>
             </h1>
 
             <p className="h-anim-2" style={{
