@@ -150,7 +150,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
       </div>
 
       {/* Slide content */}
-      <div style={panel}
+      <div className="slider-panel" style={panel}
         onTouchStart={e => { touchStart.current = e.touches[0].clientX }}
         onTouchEnd={e => {
           if (!touchStart.current) return
@@ -258,7 +258,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
           <>
             <SectionHead num="04" title="КОНТАКТЫ"/>
             <div style={{ border: '1px solid #1e1e1e', flex: 1 }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+              <div className="contacts-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
                 {[
                   { label: 'Телефон', val: phone, href: `tel:${phone}`, sub: 'На связи 24/7' },
                   { label: 'Адрес', val: settings?.address || 'ул. Зелёная, 15', href: undefined, sub: 'Южно-Сахалинск' },
@@ -275,7 +275,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
                   </div>
                 ))}
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+              <div className="contacts-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
                 {[
                   { href: tg, icon: <TgIcon/>, name: 'Telegram', color: '#229ED9' },
                   { href: wa, icon: <WaIcon/>, name: 'WhatsApp', color: '#25D366' },
@@ -302,13 +302,34 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
         )}
 
         <style>{`
-          @media(max-width:640px){
+          /* Tab bar: always scrollable, no wrap */
+          .slider-tabs{overflow-x:auto;flex-wrap:nowrap;}
+          .slider-tabs::-webkit-scrollbar{display:none;}
+          .slider-tabs{-ms-overflow-style:none;scrollbar-width:none;}
+
+          /* Mobile < 640px */
+          @media(max-width:639px){
+            .slider-panel{padding:72px 16px 32px!important;}
             .services-grid{grid-template-columns:1fr!important;}
             .reviews-grid{grid-template-columns:1fr!important;}
             .vacancies-grid{grid-template-columns:1fr!important;}
-            .slider-tabs{overflow-x:auto;}
-            .slider-tabs::-webkit-scrollbar{display:none;}
+            .contacts-grid{grid-template-columns:1fr!important;}
             .slider-counter{display:none!important;}
+            .section-head{margin-bottom:24px!important;}
+          }
+
+          /* Tablet 640-1023px */
+          @media(min-width:640px) and (max-width:1023px){
+            .slider-panel{padding:72px 24px 40px!important;}
+            .services-grid{grid-template-columns:repeat(2,1fr)!important;}
+            .reviews-grid{grid-template-columns:repeat(2,1fr)!important;}
+            .vacancies-grid{grid-template-columns:repeat(2,1fr)!important;}
+            .contacts-grid{grid-template-columns:repeat(2,1fr)!important;}
+          }
+
+          /* Desktop 1024px+ — existing design */
+          @media(min-width:1024px){
+            .services-grid{grid-template-columns:repeat(3,1fr)!important;}
           }
         `}</style>
 
@@ -331,7 +352,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
 
 function SectionHead({ num, title }: { num: string; title: string }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 48 }}>
+    <div className="section-head" style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 48 }}>
       <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#F97316', letterSpacing: 2 }}>— {num}</span>
       <h2 style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 'clamp(44px,6vw,88px)', letterSpacing: 2, lineHeight: 1, color: '#e8e0d0', margin: 0 }}>{title}</h2>
       <div style={{ flex: 1, height: 1, background: '#1e1e1e', marginLeft: 14 }}/>

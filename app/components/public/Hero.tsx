@@ -40,12 +40,12 @@ export default function Hero({ settings }: { settings: Settings }) {
         pointerEvents: 'none',
       }}/>
       {/* Diagonal */}
-      <div style={{
+      <div className="hero-diag" style={{
         position: 'absolute', top: 0, right: 0, width: '48%', height: '100%',
         background: 'linear-gradient(135deg,transparent 36%,rgba(249,115,22,.035) 36%)',
         pointerEvents: 'none',
       }}/>
-      <div style={{
+      <div className="hero-diag" style={{
         position: 'absolute', top: 0, right: '43%', width: 2, height: '100%',
         background: 'linear-gradient(to bottom,transparent,#F97316 12%,#F97316 88%,transparent)',
         transform: 'skewX(-5deg)',
@@ -69,7 +69,7 @@ export default function Hero({ settings }: { settings: Settings }) {
               Южно-Сахалинск · с 2019 года
             </div>
 
-            <h1 className="h-anim-1" style={{
+            <h1 className="h-anim-1 hero-title" style={{
               fontFamily: "'Bebas Neue', sans-serif",
               fontSize: 'clamp(52px,12.5vw,162px)', lineHeight: .88,
               letterSpacing: -2, color: '#e8e0d0', marginBottom: 30,
@@ -177,8 +177,15 @@ export default function Hero({ settings }: { settings: Settings }) {
         .s-anim-0,.s-anim-1,.s-anim-2{opacity:0;animation:hIn .85s cubic-bezier(.16,1,.3,1) forwards;}
         .s-anim-0{animation-delay:.7s}.s-anim-1{animation-delay:.82s}.s-anim-2{animation-delay:.94s}
         @keyframes hIn{to{opacity:1;transform:translateY(0)}}
-        @media(max-width:640px){
+        /* Mobile < 640px */
+        @media(max-width:639px){
+          .hero-title{font-size:48px!important;}
           .hero-stats{display:none!important;}
+          .hero-diag{display:none!important;}
+        }
+        /* Tablet 640-1023px */
+        @media(min-width:640px) and (max-width:1023px){
+          .hero-title{font-size:72px!important;}
         }
       `}</style>
     </section>
