@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Service, Review, Settings } from '@/types'
+import { useWindowWidth } from '@/hooks/useWindowWidth'
 
 // Icons
 const TgIcon = () => (<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.04 9.613c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.48 14.4l-2.95-.924c-.641-.2-.654-.641.136-.948l11.527-4.447c.537-.194 1.006.131.37.167z"/></svg>)
@@ -39,6 +40,18 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
   const [animDir, setAnimDir] = useState<'right'|'left'|null>(null)
   const [activeService, setActiveService] = useState(0)
   const touchStart = useRef<number|null>(null)
+  const width = useWindowWidth()
+  const isMobile = width < 640
+  const isTablet = width >= 640 && width < 1024
+  const isDesktop = width >= 1024
+
+  const servicesColumns = isDesktop ? 'repeat(3,1fr)' : '1fr'
+  const twoColColumns = isMobile ? '1fr' : 'repeat(2,1fr)'
+  const panelPadding = isMobile
+    ? '72px 16px 32px'
+    : isTablet
+    ? '72px 24px 40px'
+    : 'clamp(72px,8vw,100px) clamp(20px,4vw,44px) 44px'
 
   const phone = settings?.phone || '412-000'
   const tg = settings?.telegram_url || '#'
@@ -73,7 +86,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
     background: '#0a0a0a', position: 'relative', minHeight: '100vh',
   }
   const panel: React.CSSProperties = {
-    padding: 'clamp(72px,8vw,100px) clamp(20px,4vw,44px) 44px',
+    padding: panelPadding,
     minHeight: 'calc(100vh - 56px)', display: 'flex', flexDirection: 'column',
     transition: 'opacity .38s ease, transform .38s cubic-bezier(.16,1,.3,1)',
     opacity: animating ? 0 : 1,
@@ -120,9 +133,9 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
             </button>
           ))}
         </div>
-        <span className="slider-counter" style={{
+        <span style={{
           fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: '#666',
-          letterSpacing: 2, display: 'flex', alignItems: 'center',
+          letterSpacing: 2, display: isMobile ? 'none' : 'flex', alignItems: 'center',
           padding: '0 20px', borderLeft: '1px solid #1e1e1e', flexShrink: 0,
         }}>
           {String(current + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
@@ -163,7 +176,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
         {current === 0 && (
           <>
             <SectionHead num="01" title="УСЛУГИ"/>
-            <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', flex: 1 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: servicesColumns, flex: 1 }}>
               {services.map((s, i) => (
                 <ServiceCard key={s.id} s={s} i={i} active={activeService === i} onHover={() => setActiveService(i)}/>
               ))}
@@ -190,7 +203,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
                 Все отзывы →
               </a>
             </div>
-            <div className="reviews-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', flex: 1 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: twoColColumns, flex: 1 }}>
               {reviews.map((r, i) => (
                 <div key={r.id ?? i} style={{ border: '1px solid #1e1e1e', padding: 36, margin: -1 }}>
                   <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 60, color: '#F97316', opacity: .1, lineHeight: .8, marginBottom: 14, display: 'block' }}>"</span>
@@ -208,7 +221,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
         {current === 2 && (
           <>
             <SectionHead num="03" title="ВАКАНСИИ"/>
-            <div className="vacancies-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', flex: 1 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: twoColColumns, flex: 1 }}>
               {VACANCIES.map(v => (
                 <div key={v.id} style={{ border: '1px solid #1e1e1e', padding: 44, margin: -1, position: 'relative', overflow: 'hidden' }}
                   className="vac-card">
@@ -258,7 +271,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
           <>
             <SectionHead num="04" title="КОНТАКТЫ"/>
             <div style={{ border: '1px solid #1e1e1e', flex: 1 }}>
-              <div className="contacts-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: twoColColumns }}>
                 {[
                   { label: 'Телефон', val: phone, href: `tel:${phone}`, sub: 'На связи 24/7' },
                   { label: 'Адрес', val: settings?.address || 'ул. Зелёная, 15', href: undefined, sub: 'Южно-Сахалинск' },
@@ -275,7 +288,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
                   </div>
                 ))}
               </div>
-              <div className="contacts-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: twoColColumns }}>
                 {[
                   { href: tg, icon: <TgIcon/>, name: 'Telegram', color: '#229ED9' },
                   { href: wa, icon: <WaIcon/>, name: 'WhatsApp', color: '#25D366' },
@@ -301,38 +314,6 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
           </>
         )}
 
-        <style>{`
-          /* Tab bar: always scrollable, no wrap */
-          .slider-tabs{overflow-x:auto;flex-wrap:nowrap;}
-          .slider-tabs::-webkit-scrollbar{display:none;}
-          .slider-tabs{-ms-overflow-style:none;scrollbar-width:none;}
-
-          /* Mobile < 640px */
-          @media(max-width:639px){
-            .slider-panel{padding:72px 16px 32px!important;}
-            .services-grid{grid-template-columns:1fr!important;}
-            .reviews-grid{grid-template-columns:1fr!important;}
-            .vacancies-grid{grid-template-columns:1fr!important;}
-            .contacts-grid{grid-template-columns:1fr!important;}
-            .slider-counter{display:none!important;}
-            .section-head{margin-bottom:24px!important;}
-          }
-
-          /* Tablet 640-1023px */
-          @media(min-width:640px) and (max-width:1023px){
-            .slider-panel{padding:72px 24px 40px!important;}
-            .services-grid{grid-template-columns:repeat(2,1fr)!important;}
-            .reviews-grid{grid-template-columns:repeat(2,1fr)!important;}
-            .vacancies-grid{grid-template-columns:repeat(2,1fr)!important;}
-            .contacts-grid{grid-template-columns:repeat(2,1fr)!important;}
-          }
-
-          /* Desktop 1024px+ — existing design */
-          @media(min-width:1024px){
-            .services-grid{grid-template-columns:repeat(3,1fr)!important;}
-          }
-        `}</style>
-
         {/* Footer */}
         <div style={{
           borderTop: '1px solid #1e1e1e', padding: '18px 0',
@@ -352,7 +333,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
 
 function SectionHead({ num, title }: { num: string; title: string }) {
   return (
-    <div className="section-head" style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 48 }}>
+    <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 'clamp(24px,4vw,48px)' }}>
       <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#F97316', letterSpacing: 2 }}>— {num}</span>
       <h2 style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 'clamp(44px,6vw,88px)', letterSpacing: 2, lineHeight: 1, color: '#e8e0d0', margin: 0 }}>{title}</h2>
       <div style={{ flex: 1, height: 1, background: '#1e1e1e', marginLeft: 14 }}/>
