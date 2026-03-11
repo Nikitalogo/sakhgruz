@@ -27,6 +27,20 @@ body {
   max-width: 100vw;
 }
 
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600&family=IBM+Plex+Mono:wght@400;700&display=swap');
+
+/* Hero animations */
+.h-anim-0,.h-anim-1,.h-anim-2,.h-anim-3{opacity:0;transform:translateY(24px);animation:hIn .85s cubic-bezier(.16,1,.3,1) forwards;}
+.h-anim-0{animation-delay:.1s}.h-anim-1{animation-delay:.25s}.h-anim-2{animation-delay:.4s}.h-anim-3{animation-delay:.55s}
+.s-anim-0,.s-anim-1,.s-anim-2{opacity:0;animation:hIn .85s cubic-bezier(.16,1,.3,1) forwards;}
+.s-anim-0{animation-delay:.7s}.s-anim-1{animation-delay:.82s}.s-anim-2{animation-delay:.94s}
+@keyframes hIn{to{opacity:1;transform:translateY(0)}}
+
+/* Slider tab bar — always scrollable, no wrap */
+.slider-tabs{overflow-x:auto;flex-wrap:nowrap;-ms-overflow-style:none;scrollbar-width:none;}
+.slider-tabs::-webkit-scrollbar{display:none;}
+
 /* Industrial noise texture overlay utility */
 .noise-overlay::after {
   content: '';
