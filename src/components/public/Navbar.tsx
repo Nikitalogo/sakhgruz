@@ -35,8 +35,8 @@ export default function Navbar({ settings }: { settings: Settings }) {
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       padding: '0 clamp(16px,4vw,44px)',
       transition: 'all .3s',
-      background: scrolled ? 'rgba(10,10,10,.96)' : 'transparent',
-      borderBottom: scrolled ? '1px solid #1e1e1e' : '1px solid transparent',
+      background: scrolled ? 'rgba(255,244,230,.97)' : 'transparent',
+      borderBottom: scrolled ? '1px solid #e8d8c4' : '1px solid transparent',
       backdropFilter: scrolled ? 'blur(12px)' : 'none',
     }}>
       <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
@@ -45,9 +45,9 @@ export default function Navbar({ settings }: { settings: Settings }) {
           onError={() => {}} />
         <span style={{
           fontFamily: "'Bebas Neue',sans-serif", fontSize: 24, letterSpacing: 5,
-          color: '#e8e0d0',
+          color: '#1A3D8F',
         }}>
-          САХ<span style={{ color: '#F97316' }}>ГРУЗ</span>
+          САХ<span style={{ color: '#FF7A00' }}>ГРУЗ</span>
         </span>
       </a>
 
@@ -58,11 +58,11 @@ export default function Navbar({ settings }: { settings: Settings }) {
             <li key={s.idx}>
               <button onClick={() => goToSlide(s.idx)} style={{
                 fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, letterSpacing: 2,
-                textTransform: 'uppercase', color: '#666', background: 'none',
+                textTransform: 'uppercase', color: '#1A3D8F', background: 'none',
                 border: 'none', cursor: 'pointer', transition: 'color .2s', padding: 0,
               }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#F97316')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#666')}>
+              onMouseEnter={e => (e.currentTarget.style.color = '#FF7A00')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#1A3D8F')}>
                 {s.label}
               </button>
             </li>
@@ -70,11 +70,11 @@ export default function Navbar({ settings }: { settings: Settings }) {
         </ul>
         <a href={`tel:${phone}`} style={{
           fontFamily: "'IBM Plex Mono',monospace", fontSize: 11, letterSpacing: 2,
-          color: '#e8e0d0', textDecoration: 'none',
-          border: '1px solid #1e1e1e', padding: '6px 14px', transition: 'all .2s',
+          color: '#FF7A00', textDecoration: 'none',
+          border: '1px solid #FF7A00', padding: '6px 14px', transition: 'all .2s',
         }}
-        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#F97316'; (e.currentTarget as HTMLAnchorElement).style.color = '#F97316' }}
-        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#1e1e1e'; (e.currentTarget as HTMLAnchorElement).style.color = '#e8e0d0' }}>
+        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#FF7A00'; (e.currentTarget as HTMLAnchorElement).style.color = '#fff' }}
+        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.color = '#FF7A00' }}>
           {phone}
         </a>
       </div>

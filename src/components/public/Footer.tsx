@@ -18,9 +18,9 @@ export default function Footer({ settings }: Props) {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#070b14] relative overflow-hidden">
+    <footer className="bg-[#FFF4E6] relative overflow-hidden">
       {/* Orange top accent bar */}
-      <div className="h-[4px] bg-[#F97316] w-full" />
+      <div className="h-[4px] bg-[#FF7A00] w-full" />
 
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-6 sm:px-10 py-14">
@@ -29,7 +29,7 @@ export default function Footer({ settings }: Props) {
           {/* Brand */}
           <div>
             <div
-              className="text-white leading-none mb-3"
+              className="text-[#1A3D8F] leading-none mb-3"
               style={{
                 fontFamily: 'var(--font-bebas), Impact, Arial Black, sans-serif',
                 fontSize: 'clamp(2.5rem, 6vw, 4rem)',
@@ -39,7 +39,7 @@ export default function Footer({ settings }: Props) {
               САХГРУЗ
             </div>
             <p
-              className="text-white/35 text-sm leading-relaxed max-w-[220px]"
+              className="text-[#1A3D8F]/60 text-sm leading-relaxed max-w-[220px]"
               style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
             >
               Грузоперевозки и грузчики в Южно-Сахалинске
@@ -49,7 +49,7 @@ export default function Footer({ settings }: Props) {
           {/* Navigation */}
           <div>
             <p
-              className="text-white/30 text-xs font-semibold uppercase tracking-[0.3em] mb-5"
+              className="text-[#1A3D8F]/50 text-xs font-semibold uppercase tracking-[0.3em] mb-5"
               style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
             >
               Навигация
@@ -59,10 +59,10 @@ export default function Footer({ settings }: Props) {
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="text-white/50 hover:text-[#F97316] text-sm transition-colors duration-200 flex items-center gap-2 group"
+                    className="text-[#1A3D8F]/70 hover:text-[#FF7A00] text-sm transition-colors duration-200 flex items-center gap-2 group"
                     style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
                   >
-                    <span className="w-3 h-[1px] bg-white/20 group-hover:bg-[#F97316] group-hover:w-5 transition-all duration-300 inline-block" />
+                    <span className="w-3 h-[1px] bg-[#1A3D8F]/20 group-hover:bg-[#FF7A00] group-hover:w-5 transition-all duration-300 inline-block" />
                     {l.label}
                   </a>
                 </li>
@@ -73,7 +73,7 @@ export default function Footer({ settings }: Props) {
           {/* Contacts */}
           <div>
             <p
-              className="text-white/30 text-xs font-semibold uppercase tracking-[0.3em] mb-5"
+              className="text-[#1A3D8F]/50 text-xs font-semibold uppercase tracking-[0.3em] mb-5"
               style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
             >
               Контакты
@@ -82,7 +82,7 @@ export default function Footer({ settings }: Props) {
               {phone && (
                 <a
                   href={`tel:${phone.replace(/\s/g, '')}`}
-                  className="text-white/70 hover:text-white text-sm transition-colors duration-200"
+                  className="text-[#1A3D8F] hover:text-[#FF7A00] text-sm transition-colors duration-200"
                   style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
                 >
                   {phone}
@@ -118,16 +118,16 @@ export default function Footer({ settings }: Props) {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/[0.06]">
+      <div className="border-t border-[#e8d8c4]">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p
-            className="text-white/20 text-xs"
+            className="text-[#1A3D8F]/40 text-xs"
             style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
           >
             © {year} САХГРУЗ. Все права защищены.
           </p>
           <p
-            className="text-white/15 text-xs"
+            className="text-[#1A3D8F]/30 text-xs"
             style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
           >
             Южно-Сахалинск, Сахалинская область

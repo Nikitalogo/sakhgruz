@@ -43,17 +43,17 @@ export default function Hero({ settings }: { settings: Settings }) {
     <section style={{
       minHeight: '100vh', position: 'relative', overflow: 'hidden',
       display: 'flex', flexDirection: 'column',
-      background: '#0a0a0a', maxWidth: '100vw',
+      background: '#FFF4E6', maxWidth: '100vw',
     }}>
       {/* Grid bg */}
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: `repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(255,255,255,.016) 79px,rgba(255,255,255,.016) 80px),repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(255,255,255,.016) 79px,rgba(255,255,255,.016) 80px)`,
+        backgroundImage: `repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(0,0,0,.04) 79px,rgba(0,0,0,.04) 80px),repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(0,0,0,.04) 79px,rgba(0,0,0,.04) 80px)`,
       }}/>
       {/* Glow */}
       <div style={{
         position: 'absolute', top: -120, right: -60, width: 520, height: 520,
-        background: 'radial-gradient(circle,rgba(249,115,22,.08) 0%,transparent 65%)',
+        background: 'radial-gradient(circle,rgba(249,115,22,.12) 0%,transparent 65%)',
         pointerEvents: 'none',
       }}/>
       {/* Diagonal — hidden on mobile */}
@@ -74,9 +74,9 @@ export default function Hero({ settings }: { settings: Settings }) {
       <div style={{
         position: 'relative', zIndex: 2,
         padding: isMobile
-          ? '100px 16px 80px'
+          ? '80px 24px 72px'
           : isTablet
-          ? '120px 24px 80px'
+          ? '112px 32px 80px'
           : 'clamp(100px,14vw,160px) clamp(20px,4vw,44px) 80px',
         flex: 1,
       }}>
@@ -86,7 +86,7 @@ export default function Hero({ settings }: { settings: Settings }) {
               fontFamily: "'IBM Plex Mono', monospace",
               fontSize: 10, letterSpacing: 4, color: '#F97316',
               textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 12,
-              marginBottom: 22,
+              marginBottom: isMobile ? 16 : 22,
             }}>
               <span style={{ width: 22, height: 1, background: '#F97316', display: 'block' }}/>
               Южно-Сахалинск · с 2019 года
@@ -94,17 +94,18 @@ export default function Hero({ settings }: { settings: Settings }) {
 
             <h1 className="h-anim-1" style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: titleSize, lineHeight: .88,
-              letterSpacing: -2, color: '#e8e0d0', marginBottom: 30,
+              fontSize: titleSize, lineHeight: .92,
+              letterSpacing: -2, color: '#1A3D8F', marginBottom: isMobile ? 20 : 30,
             }}>
-              НА ОСТРОВЕ<br/>
-              <span style={{ color: '#F97316' }}>С ЛЮБОВЬЮ</span>
+              ГРУЗЧИКИ<br/>
+              ДОСТАВКА<br/>
+              <span style={{ color: '#FF7A00' }}>ЮЖНО-САХАЛИНСК</span>
             </h1>
 
             <p className="h-anim-2" style={{
               fontFamily: "'Oswald', sans-serif",
-              fontSize: 16, fontWeight: 300, color: '#666',
-              maxWidth: 360, lineHeight: 1.75, marginBottom: 38,
+              fontSize: 16, fontWeight: 300, color: '#000',
+              maxWidth: 360, lineHeight: 1.75, marginBottom: isMobile ? 28 : 38,
               borderLeft: '2px solid #F97316', paddingLeft: 16,
             }}>
               По городу и в радиусе 60 км.<br/>
@@ -132,7 +133,7 @@ export default function Hero({ settings }: { settings: Settings }) {
                     fontFamily: "'IBM Plex Mono', monospace",
                     fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase' as const,
                     textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 7,
-                    padding: '9px 14px', border: '1px solid #1e1e1e', color: '#666',
+                    padding: '9px 14px', border: '1px solid #d1c4b8', color: '#444',
                     background: 'transparent', transition: 'all .22s',
                   }}
                   onMouseEnter={e => {
@@ -144,11 +145,11 @@ export default function Hero({ settings }: { settings: Settings }) {
                   onMouseLeave={e => {
                     const el = e.currentTarget as HTMLAnchorElement
                     el.style.background = 'transparent'
-                    el.style.borderColor = '#1e1e1e'
-                    el.style.color = '#666'
+                    el.style.borderColor = '#d1c4b8'
+                    el.style.color = '#444'
                   }}>
                     {icon}<span>{label}</span>
-                    {href === '#' && <span style={{ fontSize: 7, background: 'rgba(255,255,255,.07)', color: '#666', padding: '2px 5px' }}>СКОРО</span>}
+                    {href === '#' && <span style={{ fontSize: 7, background: 'rgba(0,0,0,.07)', color: '#666', padding: '2px 5px' }}>СКОРО</span>}
                   </a>
                 ))}
               </div>
@@ -165,8 +166,8 @@ export default function Hero({ settings }: { settings: Settings }) {
         }}>
           {[['5.0 ★', 'на 2ГИС'], ['500+', 'заказов'], ['24/7', 'на связи']].map(([n, l], i) => (
             <div key={l} className={`s-anim-${i}`} style={{ textAlign: 'right' }}>
-              <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 48, color: '#e8e0d0', lineHeight: 1, display: 'block' }}>{n}</span>
-              <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: '#666', letterSpacing: 2.5, textTransform: 'uppercase' as const }}>{l}</span>
+              <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 48, color: '#1A3D8F', lineHeight: 1, display: 'block' }}>{n}</span>
+              <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: '#555', letterSpacing: 2.5, textTransform: 'uppercase' as const }}>{l}</span>
             </div>
           ))}
         </div>
@@ -179,7 +180,7 @@ export default function Hero({ settings }: { settings: Settings }) {
           position: 'absolute', bottom: 44, left: isMobile ? 16 : isTablet ? 24 : 'clamp(20px,4vw,44px)', zIndex: 2,
           display: 'flex', alignItems: 'center', gap: 10,
           fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, letterSpacing: 2,
-          color: '#666', textTransform: 'uppercase', cursor: 'pointer',
+          color: '#555', textTransform: 'uppercase', cursor: 'pointer',
           border: 'none', background: 'none',
         }}
       >
@@ -194,7 +195,6 @@ export default function Hero({ settings }: { settings: Settings }) {
       </button>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600&family=IBM+Plex+Mono:wght@400;700&display=swap');
         .h-anim-0,.h-anim-1,.h-anim-2,.h-anim-3{opacity:0;transform:translateY(24px);animation:hIn .85s cubic-bezier(.16,1,.3,1) forwards;}
         .h-anim-0{animation-delay:.1s}.h-anim-1{animation-delay:.25s}.h-anim-2{animation-delay:.4s}.h-anim-3{animation-delay:.55s}
         .s-anim-0,.s-anim-1,.s-anim-2{opacity:0;animation:hIn .85s cubic-bezier(.16,1,.3,1) forwards;}

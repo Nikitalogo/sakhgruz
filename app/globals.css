@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600&family=IBM+Plex+Mono:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @theme inline {
@@ -26,9 +27,6 @@ body {
   overflow-x: hidden;
   max-width: 100vw;
 }
-
-/* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600&family=IBM+Plex+Mono:wght@400;700&display=swap');
 
 /* Hero animations */
 .h-anim-0,.h-anim-1,.h-anim-2,.h-anim-3{opacity:0;transform:translateY(24px);animation:hIn .85s cubic-bezier(.16,1,.3,1) forwards;}
