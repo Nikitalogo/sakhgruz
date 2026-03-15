@@ -6,6 +6,7 @@ export default function CookieConsent() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
+    console.log('Cookie banner rendered, accepted:', localStorage.getItem('cookie_accepted'))
     if (!localStorage.getItem('cookie_accepted')) {
       setVisible(true)
     }
@@ -19,7 +20,7 @@ export default function CookieConsent() {
   if (!visible) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#1F2937]/95 backdrop-blur-sm border-t border-white/10 px-4 py-4 sm:px-6">
+    <div className="fixed bottom-0 left-0 right-0 z-[9999] bg-[#1F2937]/95 backdrop-blur-sm border-t border-white/10 px-4 py-4 sm:px-6">
       <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <p className="text-sm text-white/80 leading-relaxed">
           Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с{' '}
