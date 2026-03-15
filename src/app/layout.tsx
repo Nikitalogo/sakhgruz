@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
 import './globals.css'
+import CookieConsent from '@/components/public/CookieConsent'
 
 const geist = Geist({
   variable: '--font-geist-sans',
@@ -43,6 +44,7 @@ export default function RootLayout({
     <html lang="ru">
       <body className={`${geist.variable} antialiased bg-[#111827] text-white`}>
         {children}
+        <CookieConsent />
       </body>
     </html>
   )
