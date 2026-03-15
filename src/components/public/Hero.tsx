@@ -41,7 +41,7 @@ export default function Hero({ settings }: { settings: Settings }) {
       />
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center text-center w-full px-5 pt-28 pb-16 md:pt-36 md:pb-20 gap-8 md:gap-10">
+      <div className="relative z-10 flex flex-col items-center text-center w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 md:pt-36 md:pb-20 gap-8 md:gap-10">
 
         {/* Eyebrow */}
         <p
@@ -54,12 +54,13 @@ export default function Hero({ settings }: { settings: Settings }) {
 
         {/* Headline */}
         <h1
-          className="flex flex-col items-center max-w-5xl w-full text-[#1A3D8F] text-5xl md:text-7xl lg:text-8xl"
-          style={{ fontFamily: "'Bebas Neue', sans-serif", lineHeight: 1.05 }}
+          lang="ru"
+          className="flex flex-col items-center max-w-5xl w-full text-[#1A3D8F] text-[clamp(1.75rem,8vw,5rem)] leading-[1.1] hyphens-auto break-words"
+          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
           <span className="whitespace-nowrap">ГРУЗЧИКИ</span>
           <span className="whitespace-nowrap">ДОСТАВКА</span>
-          <span className="whitespace-nowrap">ЮЖНО-САХАЛИНСК</span>
+          <span>ЮЖНО-САХАЛИНСК</span>
         </h1>
 
         {/* Subline */}
@@ -73,17 +74,17 @@ export default function Hero({ settings }: { settings: Settings }) {
         </p>
 
         {/* CTA buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
           <a
             href={`tel:${phone}`}
-            className="inline-flex items-center gap-2 bg-[#FF7A00] text-white text-sm font-semibold tracking-wide px-7 py-3.5 rounded-full shadow-md hover:bg-[#e56d00] transition-colors duration-150"
+            className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-[#FF7A00] text-white text-sm font-semibold tracking-wide px-7 py-3.5 rounded-full shadow-md hover:bg-[#e56d00] transition-colors duration-150"
           >
             Позвонить: {phone}
           </a>
 
           <a
             href={tg}
-            className="inline-flex items-center gap-2 bg-white text-[#1A3D8F] text-sm font-medium px-5 py-3.5 rounded-full border border-[#1A3D8F]/20 shadow-sm hover:border-[#229ED9] hover:text-[#229ED9] transition-colors duration-150"
+            className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-white text-[#1A3D8F] text-sm font-medium px-5 py-3.5 rounded-full border border-[#1A3D8F]/20 shadow-sm hover:border-[#229ED9] hover:text-[#229ED9] transition-colors duration-150"
           >
             <TgIcon /> Telegram
             {tg === '#' && (
@@ -93,7 +94,7 @@ export default function Hero({ settings }: { settings: Settings }) {
 
           <a
             href={wa}
-            className="inline-flex items-center gap-2 bg-white text-[#1A3D8F] text-sm font-medium px-5 py-3.5 rounded-full border border-[#1A3D8F]/20 shadow-sm hover:border-[#25D366] hover:text-[#25D366] transition-colors duration-150"
+            className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-white text-[#1A3D8F] text-sm font-medium px-5 py-3.5 rounded-full border border-[#1A3D8F]/20 shadow-sm hover:border-[#25D366] hover:text-[#25D366] transition-colors duration-150"
           >
             <WaIcon /> WhatsApp
             {wa === '#' && (
