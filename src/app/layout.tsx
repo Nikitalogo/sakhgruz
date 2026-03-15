@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   title: 'САХГРУЗ — Грузоперевозки в Южно-Сахалинске',
   description:
     'Надёжные грузоперевозки по Сахалину. Переезды, доставка грузов, вывоз мусора. Звоните!',
+  icons: {
+    icon: '/icon.png',
+    apple: '/icon.png',
+  },
 }
 
 export default function RootLayout({
