@@ -190,7 +190,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
             <div style={{
               display: 'grid',
               gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2,1fr)' : 'repeat(3,1fr)',
-              flex: 1,
+              gap: 16, flex: 1,
             }}>
               {services.map((s, i) => (
                 <ServiceCard key={s.id} s={s} i={i} active={activeService === i} onHover={() => setActiveService(i)} isMobile={isMobile}/>
@@ -203,10 +203,9 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
         {current === 1 && (
           <>
             <SectionHead num="02" title="ОТЗЫВЫ" isMobile={isMobile}/>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 24, marginBottom: 36,
-              border: BORDER, padding: isMobile ? '16px 20px' : '20px 28px',
-              background: '#FFFFFF',
+            <div className="rounded-2xl border border-[#1A3D8F]/10 shadow-sm bg-white" style={{
+              display: 'flex', alignItems: 'center', gap: 24, marginBottom: 24,
+              padding: isMobile ? '16px 20px' : '20px 28px',
             }}>
               <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 64, color: '#FF7A00', lineHeight: 1 }}>5.0</span>
               <div>
@@ -222,15 +221,15 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
             <div style={{
               display: 'grid',
               gridTemplateColumns: isMobile ? '1fr' : 'repeat(2,1fr)',
-              flex: 1,
+              gap: 16, flex: 1,
             }}>
               {reviews.map((r, i) => (
-                <div key={r.id ?? i} style={{ border: BORDER, padding: isMobile ? 24 : 36, margin: -1, background: '#FFFFFF' }}>
+                <div key={r.id ?? i} className="rounded-2xl border border-[#1A3D8F]/10 shadow-sm bg-white" style={{ padding: isMobile ? 24 : 36 }}>
                   <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 60, color: '#FF7A00', opacity: .15, lineHeight: .8, marginBottom: 14, display: 'block' }}>"</span>
-                  <p style={{ fontFamily: "'Oswald',sans-serif", fontSize: 15, fontWeight: 300, color: '#000000', lineHeight: 1.75, marginBottom: 20 }}>{r.text}</p>
+                  <p style={{ fontFamily: "'Oswald',sans-serif", fontSize: 15, fontWeight: 300, color: '#1A3D8F', opacity: 0.75, lineHeight: 1.75, marginBottom: 20 }}>{r.text}</p>
                   <div style={{ color: '#FF7A00', fontSize: 11, letterSpacing: 2, marginBottom: 8 }}>{'★'.repeat(r.rating ?? 5)}</div>
-                  <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#FF7A00', letterSpacing: 1 }}>{r.author}</div>
-                  {r.review_date && <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: '#888', letterSpacing: 1, marginTop: 4 }}>{r.review_date}</div>}
+                  <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#1A3D8F', letterSpacing: 1 }}>{r.author}</div>
+                  {r.review_date && <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: '#1A3D8F', opacity: 0.4, letterSpacing: 1, marginTop: 4 }}>{r.review_date}</div>}
                 </div>
               ))}
             </div>
@@ -244,19 +243,18 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
             <div style={{
               display: 'grid',
               gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-              flex: 1,
+              gap: 16, flex: 1,
             }}>
               {VACANCIES.map(v => (
-                <div key={v.id} style={{ border: BORDER, padding: isMobile ? 24 : 44, margin: -1, position: 'relative', overflow: 'hidden', background: '#FFFFFF' }}
-                  className="vac-card">
+                <div key={v.id} className="rounded-2xl border border-[#1A3D8F]/10 shadow-sm bg-white" style={{ padding: isMobile ? 24 : 44 }}>
                   <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: '#FF7A00', letterSpacing: 2, marginBottom: 12, display: 'block' }}>{v.id}</span>
                   <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: isMobile ? 40 : 52, letterSpacing: 2, color: '#1A3D8F', lineHeight: 1, marginBottom: 8 }}>{v.title}</div>
                   <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 13, color: '#FF7A00', letterSpacing: 1, marginBottom: 24 }}>{v.salary}</div>
-                  <p style={{ fontFamily: "'Oswald',sans-serif", fontSize: 14, fontWeight: 300, color: '#000000', lineHeight: 1.6, marginBottom: 24 }}>{v.desc}</p>
+                  <p style={{ fontFamily: "'Oswald',sans-serif", fontSize: 14, fontWeight: 300, color: '#1A3D8F', opacity: 0.65, lineHeight: 1.6, marginBottom: 24 }}>{v.desc}</p>
                   <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 32 }}>
-                    {v.conditions.map((c, i) => (
-                      <li key={i} style={{ fontFamily: "'Oswald',sans-serif", fontSize: 13, fontWeight: 300, color: '#000000', display: 'flex', gap: 10 }}>
-                        <span style={{ color: '#FF7A00', flexShrink: 0 }}>—</span>{c}
+                    {v.conditions.map((c, idx) => (
+                      <li key={idx} style={{ fontFamily: "'Oswald',sans-serif", fontSize: 13, fontWeight: 300, color: '#1A3D8F', opacity: 0.7, display: 'flex', gap: 10 }}>
+                        <span style={{ color: '#FF7A00', flexShrink: 0, opacity: 1 }}>—</span>{c}
                       </li>
                     ))}
                   </ul>
@@ -267,23 +265,22 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
                     padding: '12px 24px', cursor: 'pointer', textDecoration: 'none',
                     display: 'inline-block', transition: 'all .2s',
                   }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#FF7A00'; (e.currentTarget as HTMLAnchorElement).style.color = '#000' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#FF7A00'; (e.currentTarget as HTMLAnchorElement).style.color = '#fff' }}
                   onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.color = '#FF7A00' }}>
                     Позвонить по вакансии
                   </a>
                 </div>
               ))}
-              <div style={{
-                gridColumn: '1/-1', border: BORDER, padding: isMobile ? '16px 24px' : '24px 44px',
-                margin: -1, display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between', gap: 12,
-                background: '#FFFFFF',
+              <div className="rounded-2xl border border-[#1A3D8F]/10 shadow-sm bg-white" style={{
+                gridColumn: '1/-1', padding: isMobile ? '16px 24px' : '24px 44px',
+                display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between', gap: 12,
               }}>
-                <span style={{ fontFamily: "'Oswald',sans-serif", fontSize: 14, fontWeight: 300, color: '#666' }}>
-                  Работа в Южно-Сахалинске · <strong style={{ color: '#000000', fontWeight: 400 }}>Неполная или полная занятость</strong> · Оплата без задержек
+                <span style={{ fontFamily: "'Oswald',sans-serif", fontSize: 14, fontWeight: 300, color: '#1A3D8F', opacity: 0.65 }}>
+                  Работа в Южно-Сахалинске · <strong style={{ color: '#1A3D8F', fontWeight: 600, opacity: 1 }}>Неполная или полная занятость</strong> · Оплата без задержек
                 </span>
                 <a href="https://2gis.ru/yuzhnosakhalinsk/firm/70000001099199325/tab/vacancies"
                   target="_blank" rel="noopener noreferrer"
-                  style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#FF7A00', textDecoration: 'none', letterSpacing: 2, whiteSpace: 'nowrap', opacity: .8 }}>
+                  style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#FF7A00', textDecoration: 'none', letterSpacing: 2, whiteSpace: 'nowrap' }}>
                   Вакансии на 2ГИС →
                 </a>
               </div>
@@ -359,32 +356,34 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
 
 function SectionHead({ num, title, isMobile }: { num: string; title: string; isMobile: boolean }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: isMobile ? 24 : 48 }}>
-      <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#FF7A00', letterSpacing: 2 }}>— {num}</span>
+    <div style={{ textAlign: 'center', marginBottom: isMobile ? 24 : 48 }}>
+      <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: '#FF7A00', letterSpacing: 3, display: 'block', marginBottom: 8 }}>— {num}</span>
       <h2 style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: isMobile ? 'clamp(36px,10vw,52px)' : 'clamp(44px,6vw,88px)', letterSpacing: 2, lineHeight: 1, color: '#1A3D8F', margin: 0 }}>{title}</h2>
-      <div style={{ flex: 1, height: 1, background: '#e8d8c4', marginLeft: 14 }}/>
     </div>
   )
 }
 
 function ServiceCard({ s, i, active, onHover, isMobile }: { s: Service; i: number; active: boolean; onHover: () => void; isMobile: boolean }) {
   const [hov, setHov] = useState(false)
-  const on = hov || active
   return (
     <div
       onMouseEnter={() => { setHov(true); onHover() }}
       onMouseLeave={() => setHov(false)}
+      className="rounded-2xl bg-white border border-[#1A3D8F]/10 cursor-pointer"
       style={{
-        border: '1px solid #e8d8c4', padding: isMobile ? '16px 18px' : '28px 24px', margin: -1,
-        cursor: 'pointer', position: 'relative', overflow: 'hidden',
-        background: on ? '#FF7A00' : '#FFFFFF', transition: 'background .36s cubic-bezier(.76,0,.24,1)',
+        padding: isMobile ? '20px 20px' : '32px 28px',
+        transition: 'transform .3s ease, box-shadow .3s ease',
+        transform: hov ? 'translateY(-4px)' : 'translateY(0)',
+        boxShadow: hov
+          ? '0 8px 24px rgba(26,61,143,.12)'
+          : '0 1px 4px rgba(26,61,143,.06)',
       }}>
-      <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: on ? 'rgba(0,0,0,.35)' : '#FF7A00', letterSpacing: 2, marginBottom: 10, display: 'block', transition: 'color .3s' }}>
+      <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: '#FF7A00', letterSpacing: 2, marginBottom: 12, display: 'block' }}>
         {String(i + 1).padStart(2, '0')}
       </span>
-      <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 28, letterSpacing: 2, color: on ? '#000' : '#1A3D8F', marginBottom: 8, transition: 'color .3s' }}>{s.title}</div>
-      <div style={{ fontFamily: "'Oswald',sans-serif", fontSize: 13, fontWeight: 300, color: on ? '#000' : '#000000', lineHeight: 1.6, marginBottom: 12, transition: 'color .3s' }}>{s.description || 'Подробности уточняйте по телефону'}</div>
-      <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 11, color: on ? '#000' : '#FF7A00', letterSpacing: 1, transition: 'color .3s' }}>{s.price}</div>
+      <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 28, letterSpacing: 2, color: '#1A3D8F', marginBottom: 10 }}>{s.title}</div>
+      <div style={{ fontFamily: "'Oswald',sans-serif", fontSize: 13, fontWeight: 300, color: '#1A3D8F', opacity: 0.6, lineHeight: 1.6, marginBottom: 14 }}>{s.description || 'Подробности уточняйте по телефону'}</div>
+      <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 11, color: '#FF7A00', letterSpacing: 1 }}>{s.price}</div>
     </div>
   )
 }

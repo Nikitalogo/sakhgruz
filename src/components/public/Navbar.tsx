@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Settings } from '@/types'
 
 const slides = [
@@ -39,17 +40,15 @@ export default function Navbar({ settings }: { settings: Settings }) {
       borderBottom: scrolled ? '1px solid #e8d8c4' : '1px solid transparent',
       backdropFilter: scrolled ? 'blur(12px)' : 'none',
     }}>
-      <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-        <Image src="/logo.png" alt="САХГРУЗ" width={80} height={32}
-          style={{ height: 32, width: 'auto', objectFit: 'contain' }}
-          onError={() => {}} />
-        <span style={{
-          fontFamily: "'Bebas Neue',sans-serif", fontSize: 24, letterSpacing: 5,
-          color: '#1A3D8F',
-        }}>
-          САХ<span style={{ color: '#FF7A00' }}>ГРУЗ</span>
-        </span>
-      </a>
+      <Link href="/">
+        <Image
+          src="/logo_final.png"
+          alt="САХГРУЗ"
+          width={180}
+          height={60}
+          className="h-12 w-auto object-contain"
+        />
+      </Link>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
         <ul style={{ display: 'flex', gap: 24, listStyle: 'none', margin: 0, padding: 0 }}
