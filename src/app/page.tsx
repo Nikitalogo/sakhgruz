@@ -10,7 +10,7 @@ import FloatingButton from '@/components/public/FloatingButton'
 import Footer from '@/components/public/Footer'
 import { Settings, Service, Photo, Review } from '@/types'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 export default async function HomePage() {
   const [settingsRes, servicesRes, photosRes, reviewsRes] = await Promise.all([
