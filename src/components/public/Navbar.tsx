@@ -20,7 +20,7 @@ export default function Navbar({ settings }: { settings: Settings }) {
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  const phone = settings?.phone || '412-000'
+  const phone = settings?.phone || '+74242412000'
 
   const goToSlide = (idx: number) => {
     const el = document.getElementById('slider')

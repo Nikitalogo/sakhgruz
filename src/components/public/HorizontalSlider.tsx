@@ -57,7 +57,7 @@ export default function HorizontalSlider({ services, reviews, settings }: Props)
   const isMobile = w < 640
   const isTablet = w >= 640 && w < 1024
 
-  const phone = settings?.phone || '412-000'
+  const phone = settings?.phone || '+74242412000'
   const tg = settings?.telegram_url || '#'
   const wa = settings?.whatsapp_url || '#'
 

@@ -21,7 +21,7 @@ const STATS = [
 ]
 
 export default function Hero({ settings }: { settings: Settings }) {
-  const phone = settings?.phone || '412-000'
+  const phone = settings?.phone || '+74242412000'
   const tg = settings?.telegram_url || '#'
   const wa = settings?.whatsapp_url || '#'
 
