@@ -6,10 +6,10 @@ import Link from 'next/link'
 import { Settings } from '@/types'
 
 const slides = [
-  { label: 'УСЛУГИ', idx: 0 },
-  { label: 'ОТЗЫВЫ', idx: 1 },
-  { label: 'ВАКАНСИИ', idx: 2 },
-  { label: 'КОНТАКТЫ', idx: 3 },
+  { label: 'УСЛУГИ', target: 'services' as const },
+  { label: 'ОТЗЫВЫ', target: 'slider' as const, idx: 0 },
+  { label: 'ВАКАНСИИ', target: 'slider' as const, idx: 1 },
+  { label: 'КОНТАКТЫ', target: 'slider' as const, idx: 2 },
 ]
 
 export default function Navbar({ settings }: { settings: Settings }) {
@@ -22,12 +22,15 @@ export default function Navbar({ settings }: { settings: Settings }) {
 
   const phone = settings?.phone || '+74242412000'
 
-  const goToSlide = (idx: number) => {
+  const goToSlide = (target: 'services' | 'slider', idx?: number) => {
+    if (target === 'services') {
+      document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })
+      return
+    }
     const el = document.getElementById('slider')
     if (!el) return
     el.scrollIntoView({ behavior: 'smooth' })
-    // dispatch custom event for slider to pick up
-    setTimeout(() => window.dispatchEvent(new CustomEvent('goto-slide', { detail: idx })), 450)
+    setTimeout(() => window.dispatchEvent(new CustomEvent('goto-slide', { detail: idx ?? 0 })), 450)
   }
 
   return (
@@ -54,8 +57,8 @@ export default function Navbar({ settings }: { settings: Settings }) {
         <ul style={{ display: 'flex', gap: 24, listStyle: 'none', margin: 0, padding: 0 }}
           className="nav-links-hide">
           {slides.map(s => (
-            <li key={s.idx}>
-              <button onClick={() => goToSlide(s.idx)} style={{
+            <li key={s.label}>
+              <button onClick={() => goToSlide(s.target, s.idx)} style={{
                 fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, letterSpacing: 2,
                 textTransform: 'uppercase', color: '#1A3D8F', background: 'none',
                 border: 'none', cursor: 'pointer', transition: 'color .2s', padding: 0,
