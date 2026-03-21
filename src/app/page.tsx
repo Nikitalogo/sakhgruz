@@ -43,7 +43,7 @@ export default async function HomePage() {
       <Navbar settings={settings} />
       <main>
         <Hero settings={settings} />
-        <Services services={services} />
+        <Services services={services} settings={settings} />
         <HowItWorks />
         <Gallery photos={photos} />
         <Reviews reviews={reviews} />
