@@ -42,6 +42,7 @@ export default function Navbar({ settings }: { settings: Settings }) {
       background: scrolled ? 'rgba(255,244,230,.97)' : 'transparent',
       borderBottom: scrolled ? '1px solid #e8d8c4' : '1px solid transparent',
       backdropFilter: scrolled ? 'blur(12px)' : 'none',
+      boxShadow: scrolled ? '0 2px 20px rgba(26,61,143,.10)' : 'none',
     }}>
       <Link href="/">
         <Image

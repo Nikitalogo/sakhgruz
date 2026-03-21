@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase'
 import Navbar from '@/components/public/Navbar'
 import Hero from '@/components/public/Hero'
 import HorizontalSlider from '@/components/public/HorizontalSlider'
+import FloatingButton from '@/components/public/FloatingButton'
 import { Settings, Service, Review } from '@/types'
 
 export const revalidate = 60
@@ -26,6 +27,7 @@ export default async function HomePage() {
         <Hero settings={settings} />
         <HorizontalSlider services={services} reviews={reviews} settings={settings} />
       </main>
+      <FloatingButton settings={settings} />
     </>
   )
 }
