@@ -37,7 +37,7 @@ const CARDS = [
 
 // ─── Карточка ─────────────────────────────────────────────────────────────────
 function ServiceCard({
-  icon: Icon, title, description, price, cta, phone, index,
+  icon: Icon, title, description, price, cta, phone,
 }: {
   icon: React.ElementType
   title: string
@@ -45,7 +45,6 @@ function ServiceCard({
   price: string
   cta: string
   phone: string
-  index: number
 }) {
   return (
     <article className="group flex flex-col bg-white rounded-2xl border border-[#1A3D8F]/10 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
@@ -53,14 +52,9 @@ function ServiceCard({
       <div className="h-[3px] w-full bg-[#F97316] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
 
       <div className="flex flex-col flex-1 p-6 sm:p-7 gap-5">
-        {/* icon + index */}
-        <div className="flex items-start justify-between">
-          <div className="w-[52px] h-[52px] rounded-full bg-[#FFF4E6] flex items-center justify-center text-[#F97316] flex-shrink-0">
-            <Icon size={28} strokeWidth={1.75} aria-hidden="true" />
-          </div>
-          <span className="font-mono text-[10px] tracking-[0.25em] text-[#1A3D8F]/30 select-none">
-            {String(index + 1).padStart(2, '0')}
-          </span>
+        {/* icon */}
+        <div className="w-[52px] h-[52px] rounded-full bg-[#FFF4E6] flex items-center justify-center text-[#F97316] flex-shrink-0">
+          <Icon size={28} strokeWidth={1.75} aria-hidden="true" />
         </div>
 
         {/* title */}
@@ -135,10 +129,10 @@ export default function Services({ services, settings }: { services: Service[]; 
           </p>
         </div>
 
-        {/* Grid 1 → 2 → 4 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {CARDS.map((card, i) => (
-            <ServiceCard key={card.title} {...card} phone={phone} index={i} />
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {CARDS.map((card) => (
+            <ServiceCard key={card.title} {...card} phone={phone} />
           ))}
         </div>
 
