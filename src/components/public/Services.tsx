@@ -1,66 +1,33 @@
 'use client'
 
+import { Users, Truck, Bus, Construction } from 'lucide-react'
 import { Service, Settings } from '@/types'
-
-// ─── SVG-иконки ──────────────────────────────────────────────────────────────
-const IconWorker = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-    <circle cx="9" cy="7" r="4"/>
-    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-  </svg>
-)
-const IconTruck = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <rect x="1" y="3" width="15" height="13" rx="1"/>
-    <path d="M16 8h4l3 4v3h-7V8z"/>
-    <circle cx="5.5" cy="18.5" r="2.5"/>
-    <circle cx="18.5" cy="18.5" r="2.5"/>
-  </svg>
-)
-const IconBus = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M8 6v6M15 6v6M2 12h19.6M18 18h2a1 1 0 0 0 1-1V7a5 5 0 0 0-5-5H8a5 5 0 0 0-5 5v10a1 1 0 0 0 1 1h2"/>
-    <circle cx="8" cy="18" r="2"/>
-    <circle cx="16" cy="18" r="2"/>
-  </svg>
-)
-const IconCrane = () => (
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M8 22V4l-5 5h14l-5-5"/>
-    <path d="M8 4h12v4H8"/>
-    <path d="M20 8v14"/>
-    <path d="M14 8v14"/>
-    <path d="M14 15h6"/>
-  </svg>
-)
 
 // ─── Данные карточек ──────────────────────────────────────────────────────────
 const CARDS = [
   {
-    icon: <IconWorker />,
+    icon: Users,
     title: 'Грузчики',
     description: 'Профессиональный переезд и подъём вещей на любой этаж. Бережно обращаемся с мебелью и хрупкими предметами.',
     price: 'от 1 000 ₽/час',
     cta: 'Заказать грузчиков',
   },
   {
-    icon: <IconTruck />,
+    icon: Truck,
     title: 'Фургоны',
     description: 'Доставка грузов по городу и области. Крытые фургоны разной грузоподъёмности — ваш груз прибудет сухим.',
     price: 'от 2 000 ₽/час',
     cta: 'Заказать фургон',
   },
   {
-    icon: <IconBus />,
+    icon: Bus,
     title: 'Микроавтобусы',
     description: 'Перевозка малогабаритных грузов и мебели. Манёвренно работаем в тесных дворах и пробках.',
     price: 'от 1 500 ₽/час',
     cta: 'Заказать авто',
   },
   {
-    icon: <IconCrane />,
+    icon: Construction,
     title: 'Кран-балки',
     description: 'Погрузка и перевозка тяжёлых грузов — станки, сейфы, спецоборудование. Без рисков и повреждений.',
     price: 'от 3 000 ₽/час',
@@ -70,9 +37,9 @@ const CARDS = [
 
 // ─── Карточка ─────────────────────────────────────────────────────────────────
 function ServiceCard({
-  icon, title, description, price, cta, phone, index,
+  icon: Icon, title, description, price, cta, phone, index,
 }: {
-  icon: React.ReactNode
+  icon: React.ElementType
   title: string
   description: string
   price: string
@@ -89,7 +56,7 @@ function ServiceCard({
         {/* icon + index */}
         <div className="flex items-start justify-between">
           <div className="w-[52px] h-[52px] rounded-full bg-[#FFF4E6] flex items-center justify-center text-[#F97316] flex-shrink-0">
-            {icon}
+            <Icon size={28} strokeWidth={1.75} aria-hidden="true" />
           </div>
           <span className="font-mono text-[10px] tracking-[0.25em] text-[#1A3D8F]/30 select-none">
             {String(index + 1).padStart(2, '0')}
@@ -118,7 +85,7 @@ function ServiceCard({
         {/* CTA */}
         <a
           href={`tel:${phone}`}
-          className="mt-auto inline-flex items-center justify-center w-full bg-[#F97316] hover:bg-[#e56d00] active:scale-95 text-white font-bold text-[11px] tracking-[0.12em] uppercase font-mono rounded-xl transition-all duration-200 hover:scale-[1.03] min-h-[48px] px-4"
+          className="mt-auto inline-flex items-center justify-center w-full bg-[#F97316] hover:bg-[#e56d00] active:scale-95 text-white font-bold text-[11px] tracking-[0.12em] uppercase font-mono rounded-xl transition-all duration-200 hover:scale-105 min-h-[48px] px-4"
         >
           {cta}
         </a>
@@ -182,7 +149,7 @@ export default function Services({ services, settings }: { services: Service[]; 
           </p>
           <a
             href={`tel:${phone}`}
-            className="flex-shrink-0 inline-flex items-center gap-2 bg-[#F97316] hover:bg-[#e56d00] text-white font-bold font-mono text-[11px] tracking-widest uppercase px-6 py-3.5 rounded-xl transition-all duration-200 hover:scale-[1.03] active:scale-95 min-h-[48px] whitespace-nowrap"
+            className="flex-shrink-0 inline-flex items-center gap-2 bg-[#F97316] hover:bg-[#e56d00] text-white font-bold font-mono text-[11px] tracking-widest uppercase px-6 py-3.5 rounded-xl transition-all duration-200 hover:scale-105 active:scale-95 min-h-[48px] whitespace-nowrap"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.18 21 3 13.82 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02L6.6 10.8z"/>
