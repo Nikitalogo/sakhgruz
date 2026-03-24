@@ -91,7 +91,7 @@ function ServiceCard({
 // ─── Главный компонент ────────────────────────────────────────────────────────
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Services({ services, settings }: { services: Service[]; settings?: Settings }) {
-  const phone = settings?.phone ?? ''
+  const phone = settings?.phone || '+74242412000'
 
   return (
     <section

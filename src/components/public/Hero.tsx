@@ -22,8 +22,8 @@ const STATS = [
 
 export default function Hero({ settings }: { settings: Settings }) {
   const phone = settings?.phone || '+74242412000'
-  const tg = settings?.telegram_url || '#'
-  const wa = settings?.whatsapp_url || '#'
+  const tg = settings?.telegram_url || ''
+  const wa = settings?.whatsapp_url || ''
 
   return (
     <section className="relative min-h-dvh flex flex-col items-center justify-center bg-[#FFF4E6] overflow-hidden">
@@ -82,25 +82,27 @@ export default function Hero({ settings }: { settings: Settings }) {
             Позвонить: {phone}
           </a>
 
-          <a
-            href={tg}
-            className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-white text-[#1A3D8F] text-sm font-medium px-5 py-3.5 rounded-full border border-[#1A3D8F]/20 shadow-sm hover:border-[#229ED9] hover:text-[#229ED9] transition-colors duration-150"
-          >
-            <TgIcon /> Telegram
-            {tg === '#' && (
-              <span className="text-[9px] bg-[#1A3D8F]/10 text-[#1A3D8F]/50 px-1.5 py-0.5 rounded uppercase tracking-wider">скоро</span>
-            )}
-          </a>
+          {tg && (
+            <a
+              href={tg}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-white text-[#1A3D8F] text-sm font-medium px-5 py-3.5 rounded-full border border-[#1A3D8F]/20 shadow-sm hover:border-[#229ED9] hover:text-[#229ED9] transition-colors duration-150"
+            >
+              <TgIcon /> Telegram
+            </a>
+          )}
 
-          <a
-            href={wa}
-            className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-white text-[#1A3D8F] text-sm font-medium px-5 py-3.5 rounded-full border border-[#1A3D8F]/20 shadow-sm hover:border-[#25D366] hover:text-[#25D366] transition-colors duration-150"
-          >
-            <WaIcon /> WhatsApp
-            {wa === '#' && (
-              <span className="text-[9px] bg-[#1A3D8F]/10 text-[#1A3D8F]/50 px-1.5 py-0.5 rounded uppercase tracking-wider">скоро</span>
-            )}
-          </a>
+          {wa && (
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-white text-[#1A3D8F] text-sm font-medium px-5 py-3.5 rounded-full border border-[#1A3D8F]/20 shadow-sm hover:border-[#25D366] hover:text-[#25D366] transition-colors duration-150"
+            >
+              <WaIcon /> WhatsApp
+            </a>
+          )}
         </div>
 
         {/* Stats row */}

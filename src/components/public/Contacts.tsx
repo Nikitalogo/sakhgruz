@@ -175,6 +175,19 @@ export default function Contacts({ settings }: Props) {
                   </p>
                 </div>
               </div>
+
+              {/* Yandex Maps embed */}
+              <div className="mt-2 overflow-hidden border border-white/[0.08]">
+                <iframe
+                  src="https://yandex.ru/map-widget/v1/?text=%D0%AE%D0%B6%D0%BD%D0%BE-%D0%A1%D0%B0%D1%85%D0%B0%D0%BB%D0%B8%D0%BD%D1%81%D0%BA+%D1%83%D0%BB+%D0%97%D0%B5%D0%BB%D1%91%D0%BD%D0%B0%D1%8F+15"
+                  width="100%"
+                  height="240"
+                  frameBorder="0"
+                  title="Адрес на карте"
+                  allowFullScreen
+                  style={{ display: 'block' }}
+                />
+              </div>
             </div>
           </FadeIn>
         </div>

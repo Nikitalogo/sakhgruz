@@ -23,6 +23,8 @@ function Stars({ rating }: { rating: number }) {
 }
 
 export default function Reviews({ reviews }: Props) {
+  if (reviews.length === 0) return null
+
   return (
     <section id="reviews" className="bg-[#111827] py-24 px-6 sm:px-10 relative overflow-hidden">
       {/* Ghost text decoration */}
@@ -64,79 +66,68 @@ export default function Reviews({ reviews }: Props) {
           </div>
         </FadeIn>
 
-        {reviews.length === 0 ? (
-          <FadeIn>
-            <p
-              className="text-white/30 text-sm uppercase tracking-widest"
-              style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
-            >
-              Отзывы появятся скоро
-            </p>
-          </FadeIn>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {reviews.map((review, i) => (
-              <FadeIn key={review.id} delay={i * 70}>
-                <div className="group relative bg-[#141b28] hover:bg-[#1a2236] border border-white/[0.06] hover:border-[#F97316]/25 p-7 transition-all duration-300 h-full flex flex-col">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {reviews.map((review, i) => (
+            <FadeIn key={review.id} delay={i * 70}>
+              <div className="group relative bg-[#141b28] hover:bg-[#1a2236] border border-white/[0.06] hover:border-[#F97316]/25 p-7 transition-all duration-300 h-full flex flex-col">
 
-                  {/* Big quote mark */}
-                  <div
-                    className="absolute top-4 right-6 text-[#F97316]/10 group-hover:text-[#F97316]/20 transition-colors duration-300 leading-none select-none"
-                    style={{
-                      fontFamily: 'Georgia, serif',
-                      fontSize: '5rem',
-                      lineHeight: 1,
-                    }}
-                    aria-hidden
-                  >
-                    &ldquo;
+                {/* Big quote mark */}
+                <div
+                  className="absolute top-4 right-6 text-[#F97316]/10 group-hover:text-[#F97316]/20 transition-colors duration-300 leading-none select-none"
+                  style={{
+                    fontFamily: 'Georgia, serif',
+                    fontSize: '5rem',
+                    lineHeight: 1,
+                  }}
+                  aria-hidden
+                >
+                  &ldquo;
+                </div>
+
+                {/* Stars */}
+                <div className="mb-4">
+                  <Stars rating={review.rating} />
+                </div>
+
+                {/* Review text */}
+                <p
+                  className="text-white/65 text-sm leading-relaxed flex-1 mb-6 relative z-10"
+                  style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
+                >
+                  {review.text}
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
+                  <div className="w-8 h-8 bg-[#F97316]/15 flex items-center justify-center flex-shrink-0">
+                    <span
+                      className="text-[#F97316] text-sm font-bold leading-none"
+                      style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
+                    >
+                      {review.author.charAt(0).toUpperCase()}
+                    </span>
                   </div>
-
-                  {/* Stars */}
-                  <div className="mb-4">
-                    <Stars rating={review.rating} />
-                  </div>
-
-                  {/* Review text */}
-                  <p
-                    className="text-white/65 text-sm leading-relaxed flex-1 mb-6 relative z-10"
-                    style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
-                  >
-                    {review.text}
-                  </p>
-
-                  {/* Author */}
-                  <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
-                    <div className="w-8 h-8 bg-[#F97316]/15 flex items-center justify-center flex-shrink-0">
-                      <span
-                        className="text-[#F97316] text-sm font-bold leading-none"
-                        style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
-                      >
-                        {review.author.charAt(0).toUpperCase()}
-                      </span>
-                    </div>
-                    <div>
+                  <div>
+                    <p
+                      className="text-white font-semibold text-sm leading-tight"
+                      style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
+                    >
+                      {review.author}
+                    </p>
+                    {review.source && (
                       <p
-                        className="text-white font-semibold text-sm leading-tight"
+                        className="text-white/30 text-xs mt-0.5"
                         style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
                       >
-                        {review.author}
+                        {review.source}
                       </p>
-                      {review.source && (
-                        <p
-                          className="text-white/30 text-xs mt-0.5"
-                          style={{ fontFamily: 'var(--font-montserrat), Arial, sans-serif' }}
-                        >
-                          {review.source}
-                        </p>
-                      )}
-                    </div>
+                    )}
                   </div>
                 </div>
-              </FadeIn>
-            ))}
-          </div>
-        )}
+              </div>
+            </FadeIn>
+          ))}
+        </div>
       </div>
     </section>
   )
