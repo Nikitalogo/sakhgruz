@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export async function proxy(req: NextRequest) {
-  const res = NextResponse.next()
+  let response = NextResponse.next({ request: req })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -12,10 +12,11 @@ export async function proxy(req: NextRequest) {
       cookies: {
         getAll: () => req.cookies.getAll(),
         setAll: (cookiesToSet) => {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            req.cookies.set(name, value)
-            res.cookies.set(name, value, options)
-          })
+          cookiesToSet.forEach(({ name, value }) => req.cookies.set(name, value))
+          response = NextResponse.next({ request: req })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          )
         },
       },
     }
@@ -28,18 +29,14 @@ export async function proxy(req: NextRequest) {
   const isLoginPage = req.nextUrl.pathname === '/admin/login'
 
   if (!session && !isLoginPage) {
-    const loginUrl = req.nextUrl.clone()
-    loginUrl.pathname = '/admin/login'
-    return NextResponse.redirect(loginUrl)
+    return NextResponse.redirect(new URL('/admin/login', req.url))
   }
 
   if (session && isLoginPage) {
-    const dashboardUrl = req.nextUrl.clone()
-    dashboardUrl.pathname = '/admin/dashboard'
-    return NextResponse.redirect(dashboardUrl)
+    return NextResponse.redirect(new URL('/admin/dashboard', req.url))
   }
 
-  return res
+  return response
 }
 
 export const config = {
